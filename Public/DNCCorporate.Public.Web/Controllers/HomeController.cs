@@ -1,43 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using DNCCorporate.Public.Web.Models;
+﻿using DNCCorporate.Public.Web.Infrastructure.MVC;
 using DNCCorporate.Server.Contract;
+using DNCCorporate.Server.Contract.Content;
+using Microsoft.AspNetCore.Mvc;
 
 namespace DNCCorporate.Public.Web.Controllers
 {
     public class HomeController : Controller
     {
         private readonly IWorkContext _workContext;
+        private readonly IPageService _pageService;
 
-        public HomeController(IWorkContext workContext)
+        public HomeController(IWorkContext workContext,
+            IPageService pageService)
         {
             _workContext = workContext;
+            _pageService = pageService;
         }
 
-        public IActionResult Index()
+        public IActionResult RedirectToDefaultLanguage(string anyslug)
         {
-            return View();
-        }
+            string slug = anyslug;
+            if (string.IsNullOrEmpty(slug))
+            {
+                slug = _pageService.GetDefaultPortalPage()?.SFUrl;
+            }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
-
-        public IActionResult RedirectToDefaultLanguage()
-        {
-            return RedirectToAction("Index", new { lang = _workContext.DefaultLanguage });
+            return RedirectToRoute(RouteConstants.LOCALIZED_PAGE_ROUTE_NAME,
+                new { lang = _workContext.DefaultLanguage, pageurl = slug });
         }
     }
 }

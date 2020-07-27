@@ -14,6 +14,13 @@ namespace DNCCorporate.Server.Contract
         IList<string> GetAvailableLanguages();
 
         /// <summary>
+        /// Check if particular language is available on Portal
+        /// </summary>
+        /// <param name="languageCode">two letter language ISO code</param>
+        /// <returns>Language availability</returns>
+        bool IsLanguageAvailable(string languageCode);
+
+        /// <summary>
         /// Get default portal language two letter ISO code (this setting is a generic one for all users).
         /// </summary>
         /// <returns>Two letter ISO code of the default language</returns>

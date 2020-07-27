@@ -1,5 +1,7 @@
 ﻿using DNCCorporate.Public.Web.Infrastructure.MVC;
 using DNCCorporate.Server.Contract;
+using DNCCorporate.Server.Contract.Content;
+using DNCCorporate.Server.Services;
 using DNCCorporate.Server.Services.Localization;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.AspNetCore.Routing;
@@ -20,7 +22,8 @@ namespace DNCCorporate.Public.Web.Infrastructure
         {
             services.Configure<RouteOptions>(options =>
             {
-                options.ConstraintMap.Add("lang", typeof(LanguageRouteConstraint));
+                options.ConstraintMap.Add(LanguageRouteConstraint.ROUTE_LABEL, typeof(LanguageRouteConstraint));
+                options.ConstraintMap.Add(PageSFUrlRouteConstraint.ROUTE_LABEL, typeof(PageSFUrlRouteConstraint));
             });
 
             services.Configure<RazorViewEngineOptions>(options =>
@@ -31,6 +34,8 @@ namespace DNCCorporate.Public.Web.Infrastructure
             services.AddHttpContextAccessor();
             services.AddTransient<ILanguageProvider, LanguageProvider>();
             services.AddTransient<IWorkContext, WebWorkContext>();
+
+            services.AddTransient<IPageService, PageService>();
         }
     }
 }
