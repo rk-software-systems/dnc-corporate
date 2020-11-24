@@ -11,6 +11,7 @@ namespace DNCCorporate.Public.Web.Infrastructure.MVC
     /// </summary>
     public class ViewLocationExpander : IViewLocationExpander
     {
+
         public IEnumerable<string> ExpandViewLocations(ViewLocationExpanderContext context,
             IEnumerable<string> viewLocations)
         {
@@ -28,7 +29,7 @@ namespace DNCCorporate.Public.Web.Infrastructure.MVC
 
         public void PopulateValues(ViewLocationExpanderContext context)
         {
-            context.Values["customviewlocation"] = nameof(ViewLocationExpander);
+            context.Values["themeviewlocations"] = nameof(ViewLocationExpander);
         }
     }
 }
