@@ -1,5 +1,4 @@
 ﻿using DNCCorporate.ViewModel;
-using System.Threading.Tasks;
 
 namespace DNCCorporate.Server.Contract.Content
 {
