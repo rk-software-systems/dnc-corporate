@@ -11,7 +11,7 @@ namespace DNCCorporate.Public.Web.Infrastructure.MVC
     {
         private readonly IPageService _pageService;
 
-        public static string ROUTE_LABEL = "pageurl";
+        public const string ROUTE_LABEL = "pageurl";
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PageSFUrlRouteConstraint"/> class.
@@ -28,7 +28,7 @@ namespace DNCCorporate.Public.Web.Infrastructure.MVC
             RouteValueDictionary values, 
             RouteDirection routeDirection)
         {
-            if (!values.ContainsKey(ROUTE_LABEL))
+            if (values == null || !values.ContainsKey(ROUTE_LABEL))
             {
                 return false;
             }

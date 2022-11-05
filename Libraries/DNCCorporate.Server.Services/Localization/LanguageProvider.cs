@@ -1,4 +1,5 @@
 ﻿using DNCCorporate.Server.Contract;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -26,7 +27,7 @@ namespace DNCCorporate.Server.Services.Localization
         public bool IsLanguageAvailable(string languageCode)
         {
             return GetAvailableLanguages()
-                .Any(x => string.Compare(x, languageCode, System.StringComparison.InvariantCultureIgnoreCase) == 0);
+                .Any(x => x.Equals(languageCode, StringComparison.OrdinalIgnoreCase));
         }
     }
 }

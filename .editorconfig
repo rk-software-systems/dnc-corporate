@@ -56,6 +56,7 @@ dotnet_style_prefer_is_null_check_over_reference_equality_method = true:suggesti
 dotnet_style_prefer_auto_properties = true:silent
 dotnet_style_object_initializer = true:suggestion
 
+
 [*.cs]
 csharp_indent_labels = no_change
 csharp_using_directive_placement = outside_namespace:silent
@@ -77,3 +78,5 @@ csharp_style_expression_bodied_local_functions = false:silent
 
 # CA1014: Mark assemblies with CLSCompliant
 dotnet_diagnostic.CA1014.severity = none
+# CA1707: Identifiers should not contain
+dotnet_diagnostic.CA1707.severity = none

@@ -11,7 +11,7 @@ namespace DNCCorporate.Public.Web.Infrastructure.MVC
     {
         private readonly ILanguageProvider _languageProvider;
 
-        public static string ROUTE_LABEL = "lang";
+        public const string ROUTE_LABEL = "lang";
 
         /// <summary>
         /// Initializes a new instance of the <see cref="LanguageRouteConstraint"/> class.
@@ -28,7 +28,7 @@ namespace DNCCorporate.Public.Web.Infrastructure.MVC
             RouteValueDictionary values,
             RouteDirection routeDirection)
         {
-            if (!values.ContainsKey(ROUTE_LABEL))
+            if (values == null || !values.ContainsKey(ROUTE_LABEL))
             {
                 return false;
             }

@@ -26,7 +26,11 @@ namespace DNCCorporate.Public.Web.Controllers
             }
 
             return RedirectToRoute(RouteConstants.LOCALIZED_PAGE_ROUTE_NAME,
-                new { lang = _workContext.DefaultLanguage, pageurl = slug });
+                new 
+                { 
+                    lang = _workContext.DefaultLanguage, 
+                    pageurl = slug 
+                });
         }
     }
 }
