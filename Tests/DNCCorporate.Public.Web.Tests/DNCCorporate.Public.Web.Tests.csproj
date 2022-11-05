@@ -23,4 +23,10 @@
     <ProjectReference Include="..\..\Public\DNCCorporate.Public.Web\DNCCorporate.Public.Web.csproj" />
   </ItemGroup>
 
+  <PropertyGroup>
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>
+    <AnalysisMode>AllEnabledByDefault</AnalysisMode>
+    <AnalysisLevel>latest</AnalysisLevel>
+  </PropertyGroup>
+
 </Project>

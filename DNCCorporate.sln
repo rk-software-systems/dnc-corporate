@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30320.27
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32929.385
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{0D0B2B9C-DA07-4DD5-9CEF-645BEECEC334}"
 EndProject
@@ -17,7 +17,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DNCCorporate.Server.Contrac
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DNCCorporate.ViewModel", "Libraries\DNCCorporate.ViewModel\DNCCorporate.ViewModel.csproj", "{16F5029D-55E1-4AB6-8124-F7CD90B57AE8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DNCCorporate.Public.Web.Tests", "Tests\DNCCorporate.Public.Web.Tests\DNCCorporate.Public.Web.Tests.csproj", "{371E91DB-F170-4FDF-8D9D-36C02279962D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DNCCorporate.Public.Web.Tests", "Tests\DNCCorporate.Public.Web.Tests\DNCCorporate.Public.Web.Tests.csproj", "{371E91DB-F170-4FDF-8D9D-36C02279962D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{710FE1F2-59F9-4A79-983A-67D94FCB2B62}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		.gitignore = .gitignore
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -4,6 +4,12 @@
     <TargetFramework>net6.0</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>
+    <AnalysisMode>AllEnabledByDefault</AnalysisMode>
+    <AnalysisLevel>latest</AnalysisLevel>
+  </PropertyGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\DNCCorporate.ViewModel\DNCCorporate.ViewModel.csproj" />
   </ItemGroup>
