@@ -1,4 +1,5 @@
-﻿using DNCCorporate.Server.Contract;
+﻿using System;
+using DNCCorporate.Server.Contract;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 
@@ -21,7 +22,7 @@ namespace DNCCorporate.Public.Web.Infrastructure
         public WebWorkContext(IHttpContextAccessor contextAccessor,
             ILanguageProvider languageProvider)
         {
-            _httpContext = contextAccessor.HttpContext;
+            _httpContext = contextAccessor?.HttpContext ?? throw new ArgumentNullException(nameof(contextAccessor));
             _languageProvider = languageProvider;
         }
 

@@ -20,22 +20,17 @@ namespace DNCCorporate.Public.Web.Infrastructure
         /// <param name="services"><see cref="IServiceCollection"/></param>
         public static void RegisterDNCServices(this IServiceCollection services)
         {
-            services.Configure<RouteOptions>(options =>
-            {
-                options.ConstraintMap.Add(LanguageRouteConstraint.ROUTE_LABEL, typeof(LanguageRouteConstraint));
-                options.ConstraintMap.Add(PageSFUrlRouteConstraint.ROUTE_LABEL, typeof(PageSFUrlRouteConstraint));
-            });
+            //services.Configure<RouteOptions>(options =>
+            //{
+            //    options.ConstraintMap.Add(LanguageRouteConstraint.ROUTE_LABEL, typeof(LanguageRouteConstraint));
+            //    options.ConstraintMap.Add(PageSFUrlRouteConstraint.ROUTE_LABEL, typeof(PageSFUrlRouteConstraint));
+            //});            
 
-            services.Configure<RazorViewEngineOptions>(options =>
-            {
-                options.ViewLocationExpanders.Add(new ViewLocationExpander());
-            });
+            //services.AddHttpContextAccessor();
+            //services.AddTransient<ILanguageProvider, LanguageProvider>();
+            //services.AddTransient<IWorkContext, WebWorkContext>();
 
-            services.AddHttpContextAccessor();
-            services.AddTransient<ILanguageProvider, LanguageProvider>();
-            services.AddTransient<IWorkContext, WebWorkContext>();
-
-            services.AddTransient<IPageService, PageService>();
+            //services.AddTransient<IPageService, PageService>();
         }
     }
 }

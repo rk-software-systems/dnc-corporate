@@ -1,0 +1,14 @@
+﻿@page
+@using System.Globalization;
+
+@model DNCCorporate.Public.Web.Pages.IndexModel
+
+@{
+    Layout = "_Layout";
+}
+
+<h2>Hi</h2>
+
+<p>Current culture : @CultureInfo.CurrentCulture.DisplayName (@CultureInfo.CurrentCulture.NativeName)</p>
+
+<p>Current date : @DateTime.Now</p>

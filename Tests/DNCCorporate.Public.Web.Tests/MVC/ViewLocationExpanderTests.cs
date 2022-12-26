@@ -24,15 +24,15 @@ namespace DNCCorporate.Public.Web.Tests.MVC
             services.AddSingleton<IHostEnvironment, HostingEnvironment>();
             services.AddSingleton<ILoggerFactory, LoggerFactory>();
 
-            var serviceProvider = services.BuildServiceProvider();
-            services.Configure<RazorViewEngineOptions>(options =>
-            {
-                options.ViewLocationExpanders.Add(new ViewLocationExpander());
-            });
+            //var serviceProvider = services.BuildServiceProvider();
+            //services.Configure<RazorViewEngineOptions>(options =>
+            //{
+            //    options.ViewLocationExpanders.Add(new ViewLocationExpander());
+            //});
 
-            var viewEngine = serviceProvider.GetRequiredService<IViewEngine>();
+            //var viewEngine = serviceProvider.GetRequiredService<IViewEngine>();
 
-            viewEngine.FindView(null, "", true);
+            //viewEngine.FindView(null, "", true);
         }
     }
 }
