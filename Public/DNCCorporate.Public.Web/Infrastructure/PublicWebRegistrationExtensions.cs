@@ -1,10 +1,4 @@
-﻿using DNCCorporate.Public.Web.Infrastructure.MVC;
-using DNCCorporate.Server.Contract;
-using DNCCorporate.Server.Contract.Content;
-using DNCCorporate.Server.Services;
-using DNCCorporate.Server.Services.Localization;
-using Microsoft.AspNetCore.Mvc.Razor;
-using Microsoft.AspNetCore.Routing;
+﻿using DNCCorporate.Server.Contract;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace DNCCorporate.Public.Web.Infrastructure
@@ -20,17 +14,7 @@ namespace DNCCorporate.Public.Web.Infrastructure
         /// <param name="services"><see cref="IServiceCollection"/></param>
         public static void RegisterDNCServices(this IServiceCollection services)
         {
-            //services.Configure<RouteOptions>(options =>
-            //{
-            //    options.ConstraintMap.Add(LanguageRouteConstraint.ROUTE_LABEL, typeof(LanguageRouteConstraint));
-            //    options.ConstraintMap.Add(PageSFUrlRouteConstraint.ROUTE_LABEL, typeof(PageSFUrlRouteConstraint));
-            //});            
-
-            //services.AddHttpContextAccessor();
-            //services.AddTransient<ILanguageProvider, LanguageProvider>();
-            //services.AddTransient<IWorkContext, WebWorkContext>();
-
-            //services.AddTransient<IPageService, PageService>();
+            services.AddTransient<IWorkContext, WebWorkContext>();
         }
     }
 }

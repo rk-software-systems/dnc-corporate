@@ -1,7 +1,6 @@
 ﻿using DNCCorporate.Public.Web.Framework.Localization;
 using DNCCorporate.Public.Web.Framework.ThemeCustomization;
 using DNCCorporate.Public.Web.Infrastructure;
-using DNCCorporate.Public.Web.Infrastructure.MVC;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Razor;
@@ -63,25 +62,6 @@ namespace DNCCorporate.Public.Web
 
             app.UseEndpoints(endpoints =>
             {
-                //endpoints.MapControllerRoute(
-                //    name: RouteConstants.LOCALIZED_PAGE_ROUTE_NAME,
-                //    pattern: "{lang:" + LanguageRouteConstraint.ROUTE_LABEL +
-                //             "}/{*pageurl:" + PageSFUrlRouteConstraint.ROUTE_LABEL + "}",
-                //    defaults: new
-                //    {
-                //        controller = "Page",
-                //        action = "Index"
-                //    });
-
-                //endpoints.MapControllerRoute(
-                //    name: "default",
-                //    pattern: "{*anyslug}",
-                //    defaults: new
-                //    {
-                //        controller = "Home",
-                //        action = "RedirectToDefaultLanguage"
-                //    });
-
                 endpoints.MapRazorPages();
             });
         }

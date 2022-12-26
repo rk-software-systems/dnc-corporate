@@ -1,4 +1,4 @@
-﻿using DNCCorporate.Public.Web.Infrastructure.MVC;
+﻿using DNCCorporate.Public.Web.Framework.ThemeCustomization;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.AspNetCore.Mvc.ViewEngines;
 using Microsoft.Extensions.DependencyInjection;
@@ -7,7 +7,7 @@ using Microsoft.Extensions.Hosting.Internal;
 using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace DNCCorporate.Public.Web.Tests.MVC
+namespace DNCCorporate.Public.Web.Tests.Framework
 {
     [TestClass]
     public class ViewLocationExpanderTests
@@ -16,13 +16,13 @@ namespace DNCCorporate.Public.Web.Tests.MVC
         [TestMethod]
         public void TestLocationPathSequence()
         {
-            // Arrange
-            var services = new ServiceCollection();
-            services.AddMvc();
+            //// Arrange
+            //var services = new ServiceCollection();
+            //services.AddMvc();
 
-            // These two are required to active the RazorViewEngineOptions.
-            services.AddSingleton<IHostEnvironment, HostingEnvironment>();
-            services.AddSingleton<ILoggerFactory, LoggerFactory>();
+            //// These two are required to active the RazorViewEngineOptions.
+            //services.AddSingleton<IHostEnvironment, HostingEnvironment>();
+            //services.AddSingleton<ILoggerFactory, LoggerFactory>();
 
             //var serviceProvider = services.BuildServiceProvider();
             //services.Configure<RazorViewEngineOptions>(options =>
