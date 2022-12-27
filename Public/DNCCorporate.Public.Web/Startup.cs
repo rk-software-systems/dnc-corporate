@@ -1,4 +1,5 @@
 ﻿using DNCCorporate.Public.Web.Framework.Localization;
+using DNCCorporate.Public.Web.Framework.TextResource;
 using DNCCorporate.Public.Web.Framework.ThemeCustomization;
 using DNCCorporate.Public.Web.Infrastructure;
 using Microsoft.AspNetCore.Builder;
@@ -40,8 +41,10 @@ namespace DNCCorporate.Public.Web
                 options.ViewLocationExpanders.Add(new ViewLocationExpander(themeSettings));
             });
 
+            services.AddSingleton<TextResourceCultureLocalizer>();
+
             services.AddRazorPages()
-                    //.AddViewLocalization(o => o.ResourcesPath = "Resources")
+                    .AddViewLocalization(o => o.ResourcesPath = $"Resources/{themeSettings.CurrentTheme}")
                     .AddRazorPagesOptions(o => {
                         o.Conventions.Add(new CultureTemplateRouteModelConvention());
                     });            
