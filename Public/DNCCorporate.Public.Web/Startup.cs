@@ -44,7 +44,7 @@ namespace DNCCorporate.Public.Web
             services.AddSingleton<TextResourceCultureLocalizer>();
 
             services.AddRazorPages()
-                    .AddViewLocalization(o => o.ResourcesPath = $"Resources/{themeSettings.CurrentTheme}")
+                    .AddViewLocalization(o => o.ResourcesPath = $"Themes/{themeSettings.CurrentTheme}")
                     .AddRazorPagesOptions(o => {
                         o.Conventions.Add(new CultureTemplateRouteModelConvention());
                     });            
