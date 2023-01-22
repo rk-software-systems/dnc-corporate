@@ -1,1 +1,0 @@
-# RK Software template
