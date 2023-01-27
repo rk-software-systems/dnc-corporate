@@ -42,7 +42,6 @@
 
   <ItemGroup>
     <Folder Include="Controllers\" />
-    <Folder Include="Themes\RKSoftware\assets\" />
   </ItemGroup>
 
   <ItemGroup>
