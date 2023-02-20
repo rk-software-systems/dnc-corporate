@@ -1,0 +1,14 @@
+﻿@page
+@using DNCCorporate.Public.Web.Framework.TextResource;
+@using Microsoft.Extensions.DependencyInjection;
+@addTagHelper *, DNCCorporate.Public.Web
+@model DNCCorporate.Public.Web.Pages.AboutUsModel
+
+@{
+    Layout = "_Layout";
+
+    var Localizer = HttpContext.RequestServices.GetService<TextResourceCultureLocalizer>();
+    ViewData["Title"] = Localizer.Text("head-title.about-us");
+}
+
+<vc:about-us />

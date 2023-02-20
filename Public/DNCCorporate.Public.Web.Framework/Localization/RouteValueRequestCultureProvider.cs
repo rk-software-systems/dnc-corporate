@@ -21,23 +21,23 @@ namespace DNCCorporate.Public.Web.Framework.Localization
         {
             var path = httpContext?.Request.Path ?? throw new ArgumentNullException(nameof(httpContext));
 
-            if (string.IsNullOrWhiteSpace(path))
+            if (!path.HasValue)
             {
                 return Task.FromResult(new ProviderCultureResult(_settings.DefaultCulture));
             }
 
-            var routeValues = httpContext.Request.Path.Value.Split('/');
-            if (routeValues.Length <= 1)
+            var routeValues = httpContext.Request.Path.Value.Split('/', StringSplitOptions.RemoveEmptyEntries);
+            if (routeValues.Length <= 0)
             {
                 return Task.FromResult(new ProviderCultureResult(_settings.DefaultCulture));
             }
 
-            if (!_settings.AvailableCultures.Any(x => x.Equals(routeValues[1], StringComparison.OrdinalIgnoreCase)))
+            if (!_settings.AvailableCultures.Any(x => x.Equals(routeValues[0], StringComparison.OrdinalIgnoreCase)))
             {
                 return Task.FromResult(new ProviderCultureResult(_settings.DefaultCulture));
             }
 
-            return Task.FromResult(new ProviderCultureResult(routeValues[1]));
+            return Task.FromResult(new ProviderCultureResult(routeValues[0]));
         }
     }
 }

@@ -1,11 +1,18 @@
 ﻿@page
-
+@using DNCCorporate.Public.Web.Framework.TextResource;
+@using Microsoft.Extensions.DependencyInjection;
 @addTagHelper *, DNCCorporate.Public.Web
-
 @model DNCCorporate.Public.Web.Pages.IndexModel
 
 @{
     Layout = "_Layout";
+    var localizer = HttpContext.RequestServices.GetService<TextResourceCultureLocalizer>();
+    ViewData["Title"] = localizer.Text("head-title.main");
+}
+
+@section SubHeader
+{
+    <vc:header-bar />
 }
 
 <vc:home-slider />
