@@ -80,3 +80,5 @@ csharp_style_expression_bodied_local_functions = false:silent
 dotnet_diagnostic.CA1014.severity = none
 # CA1707: Identifiers should not contain
 dotnet_diagnostic.CA1707.severity = none
+# CA2007: Consider calling ConfigureAwait on the awaited task 
+dotnet_diagnostic.CA2007.severity = none

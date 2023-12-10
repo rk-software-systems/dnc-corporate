@@ -1,20 +1,19 @@
 ﻿using DNCCorporate.Server.Contract;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace DNCCorporate.Public.Web.Infrastructure
+namespace DNCCorporate.Public.Web.Infrastructure;
+
+/// <summary>
+/// This class contains service collection registration method that is used to register Service implementations and dependencies.
+/// </summary>
+public static class PublicWebRegistrationExtensions
 {
     /// <summary>
-    /// This class contains service collection registration method that is used to register Service implementations and dependencies.
+    /// Add application specific services to service collection
     /// </summary>
-    public static class PublicWebRegistrationExtensions
+    /// <param name="services"><see cref="IServiceCollection"/></param>
+    public static void RegisterDNCServices(this IServiceCollection services)
     {
-        /// <summary>
-        /// Add application specific services to service collection
-        /// </summary>
-        /// <param name="services"><see cref="IServiceCollection"/></param>
-        public static void RegisterDNCServices(this IServiceCollection services)
-        {
-            services.AddTransient<IWorkContext, WebWorkContext>();
-        }
+        services.AddTransient<IWorkContext, WebWorkContext>();
     }
 }

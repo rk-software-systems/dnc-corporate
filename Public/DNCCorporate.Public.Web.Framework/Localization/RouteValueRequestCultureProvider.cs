@@ -1,43 +1,44 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Localization;
 
-namespace DNCCorporate.Public.Web.Framework.Localization
+namespace DNCCorporate.Public.Web.Framework.Localization;
+
+public class RouteValueRequestCultureProvider : IRequestCultureProvider
 {
-    public class RouteValueRequestCultureProvider : IRequestCultureProvider
+    private readonly LocalizationSettings _settings;
+
+    public RouteValueRequestCultureProvider(LocalizationSettings settings)
     {
-        private readonly LocalizationSettings _settings;
+        _settings = settings;
+    }
 
-        public RouteValueRequestCultureProvider(LocalizationSettings settings)
+    /// <summary>
+    /// get {culture} route value from path string, 
+    /// </summary>
+    /// <param name="httpContext"></param>
+    /// <returns>ProviderCultureResult depends on path {culture} route parameter, or default culture</returns>
+    public Task<ProviderCultureResult> DetermineProviderCultureResult(HttpContext httpContext)
+    {
+        ArgumentNullException.ThrowIfNull(httpContext, nameof(httpContext));
+
+        var path = httpContext.Request.Path;
+
+        if (!path.HasValue)
         {
-            _settings = settings;
+            return Task.FromResult(new ProviderCultureResult(_settings.DefaultCulture));
         }
 
-        /// <summary>
-        /// get {culture} route value from path string, 
-        /// </summary>
-        /// <param name="httpContext"></param>
-        /// <returns>ProviderCultureResult depends on path {culture} route parameter, or default culture</returns>
-        public Task<ProviderCultureResult> DetermineProviderCultureResult(HttpContext httpContext)
+        var routeValues = path.Value.Split('/', StringSplitOptions.RemoveEmptyEntries);
+        if (routeValues.Length <= 0)
         {
-            var path = httpContext?.Request.Path ?? throw new ArgumentNullException(nameof(httpContext));
-
-            if (!path.HasValue)
-            {
-                return Task.FromResult(new ProviderCultureResult(_settings.DefaultCulture));
-            }
-
-            var routeValues = httpContext.Request.Path.Value.Split('/', StringSplitOptions.RemoveEmptyEntries);
-            if (routeValues.Length <= 0)
-            {
-                return Task.FromResult(new ProviderCultureResult(_settings.DefaultCulture));
-            }
-
-            if (!_settings.AvailableCultures.Any(x => x.Equals(routeValues[0], StringComparison.OrdinalIgnoreCase)))
-            {
-                return Task.FromResult(new ProviderCultureResult(_settings.DefaultCulture));
-            }
-
-            return Task.FromResult(new ProviderCultureResult(routeValues[0]));
+            return Task.FromResult(new ProviderCultureResult(_settings.DefaultCulture));
         }
+
+        if (!_settings.AvailableCultures.Any(x => x.Equals(routeValues[0], StringComparison.OrdinalIgnoreCase)))
+        {
+            return Task.FromResult(new ProviderCultureResult(_settings.DefaultCulture));
+        }
+
+        return Task.FromResult(new ProviderCultureResult(routeValues[0]));
     }
 }

@@ -1,12 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace DNCCorporate.Public.Web.Pages
+namespace DNCCorporate.Public.Web.Pages;
+
+public class AboutUsModel : PageModel
 {
-    public class AboutUsModel : PageModel
+    public void OnGet()
     {
-        public void OnGet()
-        {
-        }
     }
 }

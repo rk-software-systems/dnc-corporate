@@ -1,36 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Reflection;
 using Microsoft.Extensions.Localization;
 
-namespace DNCCorporate.Public.Web.Framework.TextResource
+namespace DNCCorporate.Public.Web.Framework.TextResource;
+
+public class TextResourceCultureLocalizer
 {
-    public class TextResourceCultureLocalizer
+    private readonly IStringLocalizer _localizer;
+
+    public TextResourceCultureLocalizer(IStringLocalizerFactory factory)
     {
-        private readonly IStringLocalizer _localizer;
+        ArgumentNullException.ThrowIfNull(factory, nameof(factory));
 
-        public TextResourceCultureLocalizer(IStringLocalizerFactory factory)
-        {
-            if(factory == null)
-            {
-                throw new ArgumentNullException(nameof(factory));
-            }
+        var fullName = Assembly.GetEntryAssembly()?.FullName ?? "DNCCorporate.Public.Web";
+        var assemblyName = new AssemblyName(fullName);
+        _localizer = factory.Create(nameof(TextResource), assemblyName.Name);
+    }
 
-            var fullName = Assembly.GetEntryAssembly()?.FullName ?? "DNCCorporate.Public.Web";
-            var assemblyName = new AssemblyName(fullName);
-            _localizer = factory.Create(nameof(TextResource), assemblyName.Name);
-        }
-
-        // if we have formatted string we can provide arguments         
-        // e.g.: @Localizer.Text("Hello {0}", User.Name)
-        public LocalizedString Text(string key, params string[] arguments)
-        {
-            return arguments == null
-                ? _localizer[key]
-                : _localizer[key, arguments];
-        }
+    // if we have formatted string we can provide arguments         
+    // e.g.: @Localizer.Text("Hello {0}", User.Name)
+    public LocalizedString Text(string key, params string[] arguments)
+    {
+        return arguments == null
+            ? _localizer[key]
+            : _localizer[key, arguments];
     }
 }

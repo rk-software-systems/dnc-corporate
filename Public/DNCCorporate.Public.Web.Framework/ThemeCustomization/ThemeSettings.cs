@@ -1,7 +1,6 @@
-﻿namespace DNCCorporate.Public.Web.Framework.ThemeCustomization
+﻿namespace DNCCorporate.Public.Web.Framework.ThemeCustomization;
+
+public class ThemeSettings
 {
-    public class ThemeSettings
-    {
-        public string CurrentTheme { get; set; }
-    }
+    public required string CurrentTheme { get; set; }
 }

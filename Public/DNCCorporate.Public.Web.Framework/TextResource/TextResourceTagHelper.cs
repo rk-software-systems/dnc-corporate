@@ -1,36 +1,33 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 
-namespace DNCCorporate.Public.Web.Framework.TextResource
+namespace DNCCorporate.Public.Web.Framework.TextResource;
+
+[HtmlTargetElement(Attributes = TextResourceAttributeName)]
+public class TextResourceTagHelper : TagHelper
 {
-    [HtmlTargetElement(Attributes = TextResourceAttributeName)]
-    public class TextResourceTagHelper : TagHelper
+    private const string TextResourceAttributeName = "dnc-tr";
+
+    //private ITextServiceAdapter _textServiceAdapter;
+
+    [HtmlAttributeName(TextResourceAttributeName)]
+    public string TextResource { get; set; }
+
+    public TextResourceTagHelper(
+        //ITextServiceAdapter textServiceAdapter
+        )
     {
-        private const string TextResourceAttributeName = "dnc-tr";
+        //_textServiceAdapter = textServiceAdapter;
+    }
 
-        //private ITextServiceAdapter _textServiceAdapter;
+    public async override Task ProcessAsync(TagHelperContext context,
+        TagHelperOutput output)
+    {
+        ArgumentNullException.ThrowIfNull(output, nameof(output));
 
-        [HtmlAttributeName(TextResourceAttributeName)]
-        public string TextResource { get; set; }
 
-        public TextResourceTagHelper(
-            //ITextServiceAdapter textServiceAdapter
-            )
-        {
-            //_textServiceAdapter = textServiceAdapter;
-        }
+        //var str = await _textServiceAdapter.GetResource(TextResource);
+        //output.Content.SetContent(str);
 
-        public async override Task ProcessAsync(TagHelperContext context,
-            TagHelperOutput output)
-        {
-            if (output == null)
-            {
-                throw new ArgumentNullException(nameof(output));
-            }
-
-            //var str = await _textServiceAdapter.GetResource(TextResource);
-            //output.Content.SetContent(str);
-
-            await base.ProcessAsync(context, output);
-        }
+        await base.ProcessAsync(context, output);
     }
 }

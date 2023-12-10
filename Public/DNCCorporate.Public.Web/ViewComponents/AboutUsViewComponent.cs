@@ -1,12 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace DNCCorporate.Public.Web.ViewComponents
+namespace DNCCorporate.Public.Web.ViewComponents;
+
+public class AboutUsViewComponent: ViewComponent
 {
-    public class AboutUsViewComponent: ViewComponent
+    public IViewComponentResult Invoke()
     {
-        public IViewComponentResult Invoke()
-        {
-            return View();
-        }
+        return View();
     }
 }
