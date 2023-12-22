@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace DNCCorporate.Public.Web.Framework.Localization;
+namespace DNCCorporate.Public.Web.Framework.Localizations;
 
 public static class LocalizationExtension
 {

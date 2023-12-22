@@ -1,6 +1,6 @@
 ﻿using System.Collections.Immutable;
 
-namespace DNCCorporate.Public.Web.Framework.Localization;
+namespace DNCCorporate.Public.Web.Framework.Localizations;
 
 public class LocalizationSettings
 {

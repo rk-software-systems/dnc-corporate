@@ -1,6 +1,6 @@
-﻿using DNCCorporate.Public.Web.Framework.Localization;
-using DNCCorporate.Public.Web.Framework.TextResource;
-using DNCCorporate.Public.Web.Framework.ThemeCustomization;
+﻿using DNCCorporate.Public.Web.Framework.Localizations;
+using DNCCorporate.Public.Web.Framework.TextResources;
+using DNCCorporate.Public.Web.Framework.ThemeCustomizations;
 using DNCCorporate.Public.Web.Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -11,14 +11,9 @@ using Microsoft.Extensions.Hosting;
 
 namespace DNCCorporate.Public.Web;
 
-public class Startup
+public class Startup(IConfiguration configuration)
 {
-    public Startup(IConfiguration configuration)
-    {
-        Configuration = configuration;
-    }
-
-    public IConfiguration Configuration { get; }
+    public IConfiguration Configuration { get; } = configuration;
 
     public void ConfigureServices(IServiceCollection services)
     {

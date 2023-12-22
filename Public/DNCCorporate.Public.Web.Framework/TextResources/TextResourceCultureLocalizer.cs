@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using Microsoft.Extensions.Localization;
 
-namespace DNCCorporate.Public.Web.Framework.TextResource;
+namespace DNCCorporate.Public.Web.Framework.TextResources;
 
 public class TextResourceCultureLocalizer
 {
@@ -13,7 +13,7 @@ public class TextResourceCultureLocalizer
 
         var fullName = Assembly.GetEntryAssembly()?.FullName ?? "DNCCorporate.Public.Web";
         var assemblyName = new AssemblyName(fullName);
-        _localizer = factory.Create(nameof(TextResource), assemblyName.Name);
+        _localizer = factory.Create(nameof(TextResources), assemblyName.Name);
     }
 
     // if we have formatted string we can provide arguments         

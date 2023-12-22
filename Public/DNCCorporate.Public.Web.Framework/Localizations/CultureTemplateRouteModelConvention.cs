@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.ApplicationModels;
 
-namespace DNCCorporate.Public.Web.Framework.Localization;
+namespace DNCCorporate.Public.Web.Framework.Localizations;
 
 ///<summary>
 /// Configure {lang?} as first route parameter in the request path

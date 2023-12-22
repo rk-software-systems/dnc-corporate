@@ -1,7 +1,6 @@
-﻿namespace DNCCorporate.Public.Web.Themes.Default
+﻿namespace DNCCorporate.Public.Web.Themes.Default;
+
+// dummy class for grouping localization resources
+public class TextResource
 {
-    // dummy class for grouping localization resources
-    public class TextResource
-    {
-    }
 }

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 
-namespace DNCCorporate.Public.Web.Framework.TextResource;
+namespace DNCCorporate.Public.Web.Framework.TextResources;
 
 [HtmlTargetElement(Attributes = TextResourceAttributeName)]
 public class TextResourceTagHelper : TagHelper

@@ -1,5 +1,3 @@
-using System;
-
 namespace DNCCorporate.Public.Web.Models;
 
 public class ErrorViewModel
