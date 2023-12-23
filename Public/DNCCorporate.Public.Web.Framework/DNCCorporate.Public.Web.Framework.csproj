@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <Folder Include="HtmlHelpers\" />
+    <Folder Include="TagHelpers\" />
   </ItemGroup>
 
 </Project>

@@ -10,14 +10,9 @@ using Microsoft.Extensions.Options;
 
 namespace DNCCorporate.Public.Web.ViewComponents;
 
-public class LanguageSelectorViewComponent : ViewComponent
+public class LanguageSelectorViewComponent(IOptions<RequestLocalizationOptions> localizationOptions) : ViewComponent
 {
-    private readonly RequestLocalizationOptions _localizationOptions;
-
-    public LanguageSelectorViewComponent(IOptions<RequestLocalizationOptions> localizationOptions)
-    {
-        _localizationOptions = localizationOptions?.Value ?? throw new ArgumentNullException(nameof(localizationOptions));
-    }
+    private readonly RequestLocalizationOptions _localizationOptions = localizationOptions?.Value ?? throw new ArgumentNullException(nameof(localizationOptions));
 
     public IViewComponentResult Invoke()
     {
