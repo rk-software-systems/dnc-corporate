@@ -43,12 +43,12 @@ namespace DNCCorporate.Public.Web.Pages
                 try
                 {
                     var sb = new StringBuilder();
-                    sb.AppendLine(CultureInfo.InvariantCulture, $"FullName: {request.Form.FullName}");
-                    sb.AppendLine(CultureInfo.InvariantCulture, $"Email Address: {request.Form.EmailAddress}");
-                    sb.AppendLine(CultureInfo.InvariantCulture, $"Subject: {request.Form.Subject}");
-                    sb.AppendLine(CultureInfo.InvariantCulture, $"Message: {request.Form.Message}");
-                    sb.AppendLine(CultureInfo.InvariantCulture, $"IP Address: {HttpContext.Connection.RemoteIpAddress}");
-                    sb.AppendLine(CultureInfo.InvariantCulture, $"IP Address: {DateTime.UtcNow}");
+                    sb.AppendLine(CultureInfo.InvariantCulture, $"<p>Full Name: {request.Form.FullName}</p>");
+                    sb.AppendLine(CultureInfo.InvariantCulture, $"<p>Email Address: {request.Form.EmailAddress}</p>");
+                    sb.AppendLine(CultureInfo.InvariantCulture, $"<p>Subject: {request.Form.Subject}</p>");
+                    sb.AppendLine(CultureInfo.InvariantCulture, $"<p>Message: {request.Form.Message}</p>");
+                    sb.AppendLine(CultureInfo.InvariantCulture, $"<p>IP Address: {HttpContext.Connection.RemoteIpAddress}</p>");
+                    sb.AppendLine(CultureInfo.InvariantCulture, $"<p>Sent On: {DateTime.UtcNow}</p>");
 
                     await _emailSenderService.SendEmail(new EmailMessageViewModel
                     (
