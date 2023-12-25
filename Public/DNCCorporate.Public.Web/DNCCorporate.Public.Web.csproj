@@ -72,6 +72,6 @@
 		<!-- Linux path structure requires backslash changes -->
 		<Message Text="Check and copy contents of theme: $(CurrentFolder); Buildos: $(BuildOS)" Importance="high" />
 		<Exec Condition="!Exists('$(ProjectDir)wwwroot/themes/$(CurrentFolder)')"
-			Command="mkdir '$(ProjectDir)wwwroot/themes/$(CurrentFolder)' &amp;&amp; cp -r -f '$(ProjectDir)Themes/$(CurrentFolder)assets/' '$(ProjectDir)wwwroot/themes/$(CurrentFolder)'"/>
+			Command="mkdir '$(ProjectDir)wwwroot/themes/$(CurrentFolder)' &amp;&amp; cp -r -f '$(ProjectDir)Themes/$(CurrentFolder)assets/.' '$(ProjectDir)wwwroot/themes/$(CurrentFolder)'"/>
 	</Target>
 </Project>
