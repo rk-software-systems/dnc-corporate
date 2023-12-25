@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -10,27 +10,27 @@
     <DockerfileContext>..\..</DockerfileContext>
   </PropertyGroup>
 
-  <PropertyGroup>
-    <EnableNETAnalyzers>true</EnableNETAnalyzers>
-    <AnalysisMode>AllEnabledByDefault</AnalysisMode>
-    <AnalysisLevel>latest</AnalysisLevel>
-  </PropertyGroup>
+	<PropertyGroup>
+		<EnableNETAnalyzers>true</EnableNETAnalyzers>
+		<AnalysisMode>AllEnabledByDefault</AnalysisMode>
+		<AnalysisLevel>latest</AnalysisLevel>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <Compile Remove="Themes\RKSoftware\theme\**" />
-    <Content Remove="Themes\RKSoftware\theme\**" />
-    <EmbeddedResource Remove="Themes\RKSoftware\theme\**" />
-    <None Remove="Themes\RKSoftware\theme\**" />
-  </ItemGroup>
+	<ItemGroup>
+		<Compile Remove="Themes\RKSoftware\theme\**" />
+		<Content Remove="Themes\RKSoftware\theme\**" />
+		<EmbeddedResource Remove="Themes\RKSoftware\theme\**" />
+		<None Remove="Themes\RKSoftware\theme\**" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <Content Remove="wwwroot\themes\.gitignore" />
-  </ItemGroup>
+	<ItemGroup>
+		<Content Remove="wwwroot\themes\.gitignore" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="8.0.0" />
-    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.5" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="8.0.0" />
+		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.5" />
+	</ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\DNCCorporate.Contracts\DNCCorporate.Contracts.csproj" />
@@ -39,22 +39,34 @@
     <ProjectReference Include="..\DNCCorporate.Public.Web.Framework\DNCCorporate.Public.Web.Framework.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Include="wwwroot\themes\.gitignore" />
-  </ItemGroup>
+	<ItemGroup>
+		<None Include="wwwroot\themes\.gitignore" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
+	<ItemGroup>
+		<Folder Include="Controllers\" />
+		<Folder Include="Themes\Default\assets\" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <EmbeddedResource Update="Themes\Default\TextResource.en.resx">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-  </ItemGroup>
+	<ItemGroup>
+		<EmbeddedResource Update="Themes\Default\TextResource.en.resx">
+			<SubType>Designer</SubType>
+		</EmbeddedResource>
+	</ItemGroup>
 
-  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <Exec Command="if not exist &quot;$(ProjectDir)wwwroot\themes\RKSoftware\&quot; mkdir &quot;$(ProjectDir)wwwroot\themes\RKSoftware\&quot;&#xD;&#xA;xcopy &quot;$(ProjectDir)Themes\RKSoftware\assets\&quot; &quot;$(ProjectDir)wwwroot\themes\RKSoftware\&quot; /d /s /i /y" />
-  </Target>
+	<!-- This target is used to iterate through the themes folder contents and copy it to assets public folder -->
+	<Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+		<ItemGroup>
+			<StubFiles Include="$(ProjectDir)Themes\**\*.tdef" />
 
+			<StubDirs Include="@(StubFiles->'%(RecursiveDir)')" />
+		</ItemGroup>
+		<!-- Process theme directories (one by one) -->
+		<MSBuild Projects="$(MSBuildProjectFile)" Targets="CopyThemeAssets" Properties="CurrentFolder=%(StubDirs.Identity)" />
+	</Target>
+	<!-- Single directory copy asset task -->
+	<Target Name="CopyThemeAssets">
+		<Message Text="Check and copy contents of theme: $(CurrentFolder)" Importance="high" />
+		<Exec Command="if not exist &quot;$(ProjectDir)wwwroot\themes\$(CurrentFolder)&quot; mkdir &quot;$(ProjectDir)wwwroot\themes\$(CurrentFolder)&quot;&#xD;&#xA;xcopy &quot;$(ProjectDir)Themes\$(CurrentFolder)assets\&quot; &quot;$(ProjectDir)wwwroot\themes\$(CurrentFolder)&quot; /d /s /i /y" />
+	</Target>
 </Project>
