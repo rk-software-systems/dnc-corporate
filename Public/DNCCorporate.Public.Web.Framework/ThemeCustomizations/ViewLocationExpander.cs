@@ -5,14 +5,9 @@ namespace DNCCorporate.Public.Web.Framework.ThemeCustomizations;
 /// <summary>
 /// This class is used to override default view search.
 /// </summary>
-public class ViewLocationExpander : IViewLocationExpander
+public class ViewLocationExpander(ThemeSettings settings) : IViewLocationExpander
 {
-    private readonly ThemeSettings _settings;
-
-    public ViewLocationExpander(ThemeSettings settings)
-    {
-        _settings = settings;
-    }
+    private readonly ThemeSettings _settings = settings;
 
     public IEnumerable<string> ExpandViewLocations(
         ViewLocationExpanderContext context,

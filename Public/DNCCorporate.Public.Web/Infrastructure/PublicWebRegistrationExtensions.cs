@@ -1,4 +1,6 @@
 ﻿using DNCCorporate.Contracts;
+using DNCCorporate.Services;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace DNCCorporate.Public.Web.Infrastructure;
@@ -12,8 +14,12 @@ public static class PublicWebRegistrationExtensions
     /// Add application specific services to service collection
     /// </summary>
     /// <param name="services"><see cref="IServiceCollection"/></param>
-    public static void RegisterDNCServices(this IServiceCollection services)
+    /// <param name="configuration"><see cref="IConfiguration"/></param>
+    public static void RegisterDNCServices(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddScoped<IWorkContext, WebWorkContext>();
+
+        services.Configure<SmtpSettings>(configuration.GetSection(nameof(SmtpSettings)));
+        services.AddScoped<IEmailSenderService, EmailSenderService>();
     }
 }

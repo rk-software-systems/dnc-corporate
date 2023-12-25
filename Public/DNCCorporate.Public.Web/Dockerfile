@@ -1,16 +1,18 @@
+#See https://aka.ms/customizecontainer to learn how to customize your debug container and how Visual Studio uses this Dockerfile to build your images for faster debugging.
+
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 USER app
 WORKDIR /app
-EXPOSE 80
-EXPOSE 443
+EXPOSE 8080
+EXPOSE 8081
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["Public/DNCCorporate.Public.Web/DNCCorporate.Public.Web.csproj", "Public/DNCCorporate.Public.Web/"]
-COPY ["Libraries/DNCCorporate.Server.Contract/DNCCorporate.Server.Contract.csproj", "Libraries/DNCCorporate.Server.Contract/"]
-COPY ["Libraries/DNCCorporate.ViewModel/DNCCorporate.ViewModel.csproj", "Libraries/DNCCorporate.ViewModel/"]
-COPY ["Libraries/DNCCorporate.Server.Services/DNCCorporate.Server.Services.csproj", "Libraries/DNCCorporate.Server.Services/"]
+COPY ["Libraries/DNCCorporate.Contracts/DNCCorporate.Contracts.csproj", "Libraries/DNCCorporate.Contracts/"]
+COPY ["Libraries/DNCCorporate.Services/DNCCorporate.Services.csproj", "Libraries/DNCCorporate.Services/"]
+COPY ["Libraries/DNCCorporate.ViewModels/DNCCorporate.ViewModels.csproj", "Libraries/DNCCorporate.ViewModels/"]
 COPY ["Public/DNCCorporate.Public.Web.Framework/DNCCorporate.Public.Web.Framework.csproj", "Public/DNCCorporate.Public.Web.Framework/"]
 RUN dotnet restore "./Public/DNCCorporate.Public.Web/./DNCCorporate.Public.Web.csproj"
 COPY . .

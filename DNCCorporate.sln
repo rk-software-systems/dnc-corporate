@@ -23,11 +23,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DNCCorporate.Public.Web.Fra
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DNCCorporate.Public.Web.Framework.Tests", "Tests\DNCCorporate.Public.Web.Framework.Tests\DNCCorporate.Public.Web.Framework.Tests.csproj", "{9C743A61-3FA1-4536-AE89-58CAF99C645A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DNCCorporate.Contracts", "Libraries\DNCCorporate.Contracts\DNCCorporate.Contracts.csproj", "{765C8C76-6A95-420D-866A-915897C40BBA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DNCCorporate.Contracts", "Libraries\DNCCorporate.Contracts\DNCCorporate.Contracts.csproj", "{765C8C76-6A95-420D-866A-915897C40BBA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DNCCorporate.Services", "Libraries\DNCCorporate.Services\DNCCorporate.Services.csproj", "{AAF0555A-F036-499A-9A84-5F12749B9075}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DNCCorporate.Services", "Libraries\DNCCorporate.Services\DNCCorporate.Services.csproj", "{AAF0555A-F036-499A-9A84-5F12749B9075}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DNCCorporate.ViewModels", "Libraries\DNCCorporate.ViewModels\DNCCorporate.ViewModels.csproj", "{A41FFBCF-6CF2-465E-BB61-936CB0422E2E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DNCCorporate.ViewModels", "Libraries\DNCCorporate.ViewModels\DNCCorporate.ViewModels.csproj", "{A41FFBCF-6CF2-465E-BB61-936CB0422E2E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -2,6 +2,7 @@
 using DNCCorporate.Public.Web.Framework.TextResources;
 using DNCCorporate.Public.Web.Framework.ThemeCustomizations;
 using DNCCorporate.Public.Web.Infrastructure;
+using DNCCorporate.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Razor;
@@ -20,9 +21,9 @@ public class Startup(IConfiguration configuration)
         // settings
         services.Configure<LocalizationSettings>(Configuration.GetSection(nameof(LocalizationSettings)));
         services.Configure<ThemeSettings>(Configuration.GetSection(nameof(ThemeSettings)));
-
+        
         // services
-        services.RegisterDNCServices();
+        services.RegisterDNCServices(configuration);
 
         // infrastructure            
         var localizationSettings = Configuration.GetSection(nameof(LocalizationSettings))

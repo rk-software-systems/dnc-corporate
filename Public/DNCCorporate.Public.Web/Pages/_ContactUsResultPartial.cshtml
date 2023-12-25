@@ -1,0 +1,15 @@
+﻿@model DNCCorporate.Public.Web.Pages.ContactUsModel
+
+@if (Model.IsSuccess == true)
+{
+    <div class="contact-form-success alert alert-success mt-4">
+        <strong>Success!</strong> Your message has been sent to us.
+    </div>
+}
+@if (Model.IsSuccess == false)
+{
+    <div class="contact-form-error alert alert-danger mt-4">
+        <strong>Error!</strong> There was an error sending your message.
+        <span class="mail-error-message text-1 d-block"></span>
+    </div>
+}

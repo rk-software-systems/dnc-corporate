@@ -1,10 +1,14 @@
+using DNCCorporate.Services;
 using DNCCorporate.ViewModels;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace DNCCorporate.Public.Web.Pages
 {
-    public class ContactUsModel : PageModel
+    public class ContactUsModel(IEmailSenderService emailSenderService) : PageModel
     {
+        private readonly IEmailSenderService _emailSenderService = emailSenderService;
+
         public ContactUsFormRequestViewModel Form { get; set; } = new ContactUsFormRequestViewModel(string.Empty, string.Empty, string.Empty, string.Empty);
 
         public bool? IsSuccess { get; set; }
@@ -14,15 +18,31 @@ namespace DNCCorporate.Public.Web.Pages
         {
         }
 
-        public void OnPost(ContactUsRequestViewModel request)
+        public async Task<IActionResult> OnPost(ContactUsRequestViewModel request)
         {
-            if (!ModelState.IsValid)
+            IsSuccess = ModelState.IsValid;            
+
+            if (ModelState.IsValid)
             {
-                IsSuccess = false;
-                return;
+                try
+                {
+                    await _emailSenderService.SendEmail(new EmailMessageViewModel
+                    {
+                        To = ""
+                    })
+                }
+                catch (System.Exception)
+                {
+                    IsSuccess = false;
+                }
             }
 
-            IsSuccess = true;
+            return new PartialViewResult
+            {
+                ViewName = "_ContactUsResultPartial",
+                ViewData = ViewData,
+                TempData = TempData
+            };
         }
     }
 }
