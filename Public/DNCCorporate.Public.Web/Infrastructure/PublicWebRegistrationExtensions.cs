@@ -14,6 +14,6 @@ public static class PublicWebRegistrationExtensions
     /// <param name="services"><see cref="IServiceCollection"/></param>
     public static void RegisterDNCServices(this IServiceCollection services)
     {
-        services.AddTransient<IWorkContext, WebWorkContext>();
+        services.AddScoped<IWorkContext, WebWorkContext>();
     }
 }

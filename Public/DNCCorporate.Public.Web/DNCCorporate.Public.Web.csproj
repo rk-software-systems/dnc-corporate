@@ -2,6 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
     <CopyRefAssembliesToPublishDirectory>false</CopyRefAssembliesToPublishDirectory>
     <UserSecretsId>e568858b-334c-4273-96d3-256cd32a50ab</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
@@ -32,6 +34,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\DNCCorporate.Contracts\DNCCorporate.Contracts.csproj" />
+    <ProjectReference Include="..\..\Libraries\DNCCorporate.Services\DNCCorporate.Services.csproj" />
+    <ProjectReference Include="..\..\Libraries\DNCCorporate.ViewModels\DNCCorporate.ViewModels.csproj" />
     <ProjectReference Include="..\DNCCorporate.Public.Web.Framework\DNCCorporate.Public.Web.Framework.csproj" />
   </ItemGroup>
 
