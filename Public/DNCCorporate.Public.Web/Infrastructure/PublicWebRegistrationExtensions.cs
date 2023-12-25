@@ -19,6 +19,8 @@ public static class PublicWebRegistrationExtensions
     {
         services.AddScoped<IWorkContext, WebWorkContext>();
 
+        services.Configure<BusinessSettings>(configuration.GetSection(nameof(BusinessSettings)));
+
         services.Configure<SmtpSettings>(configuration.GetSection(nameof(SmtpSettings)));
         services.AddScoped<IEmailSenderService, EmailSenderService>();
     }
