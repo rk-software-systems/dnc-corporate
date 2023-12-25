@@ -62,8 +62,16 @@
 		<MSBuild Projects="$(MSBuildProjectFile)" Targets="CopyThemeAssets" Properties="CurrentFolder=%(StubDirs.Identity)" />
 	</Target>
 	<!-- Single directory copy asset task -->
-	<Target Name="CopyThemeAssets">
-		<Message Text="Check and copy contents of theme: $(CurrentFolder)" Importance="high" />
+	<Target Name="CopyThemeAssets" Condition="'$(BuildOS)' == '' Or '$(BuildOS)' == 'win'">
+		<!-- Windows path structure requires no adjustments -->
+		<Message Text="Check and copy contents of theme: $(CurrentFolder); Buildos: $(BuildOS)" Importance="high" />
 		<Exec Command="if not exist &quot;$(ProjectDir)wwwroot\themes\$(CurrentFolder)&quot; mkdir &quot;$(ProjectDir)wwwroot\themes\$(CurrentFolder)&quot;&#xD;&#xA;xcopy &quot;$(ProjectDir)Themes\$(CurrentFolder)assets\&quot; &quot;$(ProjectDir)wwwroot\themes\$(CurrentFolder)&quot; /d /s /i /y" />
+	</Target>
+
+	<Target Name="CopyThemeAssets" Condition="'$(BuildOS)' == 'lin'">
+		<!-- Linux path structure requires backslash changes -->
+		<Message Text="Check and copy contents of theme: $(CurrentFolder); Buildos: $(BuildOS)" Importance="high" />
+		<Exec Condition="!Exists('$(ProjectDir)wwwroot/themes/$(CurrentFolder)')"
+			Command="mkdir '$(ProjectDir)wwwroot/themes/$(CurrentFolder)' &amp;&amp; xcopy '$(ProjectDir)Themes/$(CurrentFolder)assets/' '$(ProjectDir)wwwroot/themes/$(CurrentFolder)' /d /s /i /y"/>
 	</Target>
 </Project>
