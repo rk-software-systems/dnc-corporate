@@ -1,4 +1,4 @@
-﻿using DNCCorporate.Server.Contract;
+﻿using DNCCorporate.Contracts;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace DNCCorporate.Public.Web.Infrastructure;

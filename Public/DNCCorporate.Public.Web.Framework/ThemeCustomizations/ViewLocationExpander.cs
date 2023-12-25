@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.Razor;
 
-namespace DNCCorporate.Public.Web.Framework.ThemeCustomization;
+namespace DNCCorporate.Public.Web.Framework.ThemeCustomizations;
 
 /// <summary>
 /// This class is used to override default view search.

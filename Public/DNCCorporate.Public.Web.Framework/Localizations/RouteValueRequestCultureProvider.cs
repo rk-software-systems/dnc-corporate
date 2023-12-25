@@ -1,16 +1,11 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Localization;
 
-namespace DNCCorporate.Public.Web.Framework.Localization;
+namespace DNCCorporate.Public.Web.Framework.Localizations;
 
-public class RouteValueRequestCultureProvider : IRequestCultureProvider
+public class RouteValueRequestCultureProvider(LocalizationSettings settings) : IRequestCultureProvider
 {
-    private readonly LocalizationSettings _settings;
-
-    public RouteValueRequestCultureProvider(LocalizationSettings settings)
-    {
-        _settings = settings;
-    }
+    private readonly LocalizationSettings _settings = settings;
 
     /// <summary>
     /// get {culture} route value from path string, 

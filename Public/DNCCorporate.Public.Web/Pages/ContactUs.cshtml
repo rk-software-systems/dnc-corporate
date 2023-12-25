@@ -1,5 +1,5 @@
 ﻿@page
-@using DNCCorporate.Public.Web.Framework.TextResource;
+@using DNCCorporate.Public.Web.Framework.TextResources;
 @using Microsoft.Extensions.DependencyInjection;
 @addTagHelper *, DNCCorporate.Public.Web
 @model DNCCorporate.Public.Web.Pages.ContactUsModel
@@ -10,4 +10,5 @@
     ViewData["Title"] = Localizer.Text("head-title.contact-us");
 }
 
+<vc:page-title page-name="Contact Us" />
 <vc:contact-us />

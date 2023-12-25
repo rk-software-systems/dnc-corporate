@@ -31,7 +31,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\..\Libraries\DNCCorporate.Server.Contract\DNCCorporate.Server.Contract.csproj" />
+		<ProjectReference Include="..\..\Libraries\DNCCorporate.Server.Contracts\DNCCorporate.Server.Contracts.csproj" />
 		<ProjectReference Include="..\..\Libraries\DNCCorporate.Server.Services\DNCCorporate.Server.Services.csproj" />
 		<ProjectReference Include="..\DNCCorporate.Public.Web.Framework\DNCCorporate.Public.Web.Framework.csproj" />
 	</ItemGroup>

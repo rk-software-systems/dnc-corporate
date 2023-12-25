@@ -1,4 +1,4 @@
-﻿namespace DNCCorporate.Public.Web.Framework.ThemeCustomization;
+﻿namespace DNCCorporate.Public.Web.Framework.ThemeCustomizations;
 
 public class ThemeSettings
 {
