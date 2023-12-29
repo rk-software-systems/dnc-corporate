@@ -28,6 +28,32 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Themes\RKSoftware\assets\img\custom\close-up-image-programer-working-his-desk-office.jpg" />
+	  <None Remove="Themes\RKSoftware\assets\img\custom\computer-custom-px.jpg" />
+	  <None Remove="Themes\RKSoftware\assets\img\custom\person-working-html-computer.jpg" />
+	  <None Remove="Themes\RKSoftware\assets\img\custom\usiness-people-meeting-discuss-situation-marketing.jpg" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Include="Themes\RKSoftware\assets\img\custom\close-up-image-programer-working-his-desk-office.jpg">
+	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+	    <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+	  </Content>
+	  <Content Include="Themes\RKSoftware\assets\img\custom\computer-custom-px.jpg">
+	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+	    <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+	  </Content>
+	  <Content Include="Themes\RKSoftware\assets\img\custom\person-working-html-computer.jpg">
+	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+	    <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+	  </Content>
+	  <Content Include="Themes\RKSoftware\assets\img\custom\usiness-people-meeting-discuss-situation-marketing.jpg">
+	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+	    <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+	  </Content>
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="8.0.0" />
 		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.5" />
 	</ItemGroup>
@@ -74,7 +100,6 @@
 	<Target Name="CopyThemeAssets" Condition="'$(BuildOS)' == 'lin'">
 		<!-- Linux path structure requires backslash changes -->
 		<Message Text="Check and copy contents of theme: $(CurrentFolder); Buildos: $(BuildOS)" Importance="high" />
-		<Exec Condition="!Exists('$(ProjectDir)wwwroot/themes/$(CurrentFolder)')"
-			Command="mkdir '$(ProjectDir)wwwroot/themes/$(CurrentFolder)' &amp;&amp; cp -r -f '$(ProjectDir)Themes/$(CurrentFolder)assets/.' '$(ProjectDir)wwwroot/themes/$(CurrentFolder)'"/>
+		<Exec Condition="!Exists('$(ProjectDir)wwwroot/themes/$(CurrentFolder)')" Command="mkdir '$(ProjectDir)wwwroot/themes/$(CurrentFolder)' &amp;&amp; cp -r -f '$(ProjectDir)Themes/$(CurrentFolder)assets/.' '$(ProjectDir)wwwroot/themes/$(CurrentFolder)'" />
 	</Target>
 </Project>

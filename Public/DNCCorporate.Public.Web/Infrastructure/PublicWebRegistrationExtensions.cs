@@ -1,7 +1,5 @@
 ﻿using DNCCorporate.Contracts;
 using DNCCorporate.Services;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace DNCCorporate.Public.Web.Infrastructure;
 
