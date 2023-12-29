@@ -13,7 +13,7 @@ public class TextResourceCultureLocalizer
 
 		var fullName = Assembly.GetEntryAssembly()?.FullName ?? "DNCCorporate.Public.Web";
 		var assemblyName = new AssemblyName(fullName);
-		_localizer = factory.Create(nameof(TextResources), assemblyName.Name);
+		_localizer = factory.Create("TextResource", assemblyName.Name);
 	}
 
 	// if we have formatted string we can provide arguments         
