@@ -25,6 +25,7 @@
 
 	<ItemGroup>
 		<Content Remove="wwwroot\themes\.gitignore" />
+		<Content Remove="wwwroot\themes\RKSoftware\img\custom\4799410.jpg" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -67,11 +68,31 @@
 
 	<ItemGroup>
 		<None Include="wwwroot\themes\.gitignore" />
+		<None Include="wwwroot\themes\RKSoftware\img\custom\4799410.jpg" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<Folder Include="Controllers\" />
 		<Folder Include="Themes\Default\assets\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Update="wwwroot\themes\RKSoftware\img\custom\close-up-image-programer-working-his-desk-office.jpg">
+	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+	    <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+	  </Content>
+	  <Content Update="wwwroot\themes\RKSoftware\img\custom\computer-custom-px.jpg">
+	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+	    <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+	  </Content>
+	  <Content Update="wwwroot\themes\RKSoftware\img\custom\person-working-html-computer.jpg">
+	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+	    <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+	  </Content>
+	  <Content Update="wwwroot\themes\RKSoftware\img\custom\usiness-people-meeting-discuss-situation-marketing.jpg">
+	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+	    <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+	  </Content>
 	</ItemGroup>
 
 	<ItemGroup>

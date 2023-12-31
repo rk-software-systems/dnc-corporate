@@ -343,3 +343,4 @@ healthchecksdb
 
 *.Development.json
 /Public/DNCCorporate.Public.Web/Themes/RKSoftware
+/Public/DNCCorporate.Public.Web/Themes/RKSoftware
