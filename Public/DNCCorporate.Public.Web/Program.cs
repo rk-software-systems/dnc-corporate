@@ -10,8 +10,7 @@ startup.ConfigureServices(builder.Services);
 var app = builder.Build();
 
 // init text resources
-using var scope = app.Services.CreateScope();
-var textResourceQueryService = scope.ServiceProvider.GetRequiredService<ITextResourceQueryService>();
+var textResourceQueryService = app.Services.GetRequiredService<ITextResourceQueryService>();
 await textResourceQueryService.LoadAll();
 
 startup.Configure(app, app.Environment);

@@ -1,47 +1,54 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Globalization;
+using DNCCorporate.Services;
 using Microsoft.Extensions.Localization;
 
 namespace DNCCorporate.Public.Web.Framework.TextResources;
 
-public class JsonStringLocalizer : IStringLocalizer
+public class JsonStringLocalizer(ITextResourceQueryService textResourceQueryService) : IStringLocalizer
 {
+    #region fields     
 
-    #region consts                  
-    #endregion
+    private readonly ITextResourceQueryService _textResourceQueryService = textResourceQueryService;
 
-    #region fields                  
     #endregion
 
     #region props       
 
-    public LocalizedString this[string name] => throw new NotImplementedException();
-
-    public LocalizedString this[string name, params object[] arguments] => throw new NotImplementedException();
-
-    #endregion
-
-    #region ctors
-
-    public JsonStringLocalizer()
+    public LocalizedString this[string name]
     {
+        get
+        {
+            var culture = CurrentCultureHelper.CurrentCulture;
+            var tr = _textResourceQueryService.GetTextResource(culture, name);
+            return new LocalizedString(name, tr ?? name, false);
+        }
     }
+
+    public LocalizedString this[string name, params object[] arguments]
+    {
+        get
+        {
+            var culture = CurrentCultureHelper.CurrentCulture;
+            var tr = _textResourceQueryService.GetTextResource(culture, name);
+            if(tr != null)
+            {
+                tr = string.Format(CultureInfo.CurrentCulture, tr, arguments);
+            }
+            return new LocalizedString(name, tr ?? name, false);
+        }
+    }
+
     #endregion
 
     #region methods
 
     public IEnumerable<LocalizedString> GetAllStrings(bool includeParentCultures)
     {
-        throw new NotImplementedException();
+        var culture = CurrentCultureHelper.CurrentCulture;
+        var textResources = _textResourceQueryService.GetTextResources(culture);
+
+        return textResources.Select(x => new LocalizedString(x.Key, x.Value ?? x.Key, false));        
     }
-
-    #endregion
-
-    #region helpers
-    
 
     #endregion
 }

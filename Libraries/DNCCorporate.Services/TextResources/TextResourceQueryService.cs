@@ -12,9 +12,7 @@ public class TextResourceQueryService : ITextResourceQueryService
     private static FrozenDictionary<string, FrozenDictionary<string, string?>>? _textResources;
     private readonly ThemeSettings _themeSettings;
     private readonly LocalizationSettings _localizationSettings;
-    #endregion
 
-    #region props                  
     #endregion
 
     #region ctors
@@ -52,6 +50,27 @@ public class TextResourceQueryService : ITextResourceQueryService
             }
         }
         _textResources = textResources.ToFrozenDictionary();
+    }
+
+    public FrozenDictionary<string, string?> GetTextResources(string culture)
+    {
+        if(_textResources != null && _textResources.Count > 0 && _textResources.TryGetValue(culture, out var dic))
+        {
+            return dic;
+        }
+
+        return FrozenDictionary<string, string?>.Empty;
+    }
+
+    public string? GetTextResource(string culture, string key)
+    {
+        var textResources = GetTextResources(culture);
+        if (textResources.Count > 0 && textResources.TryGetValue(key, out var tr))
+        {
+            return tr;
+        }
+
+        return null;
     }
 
     #endregion

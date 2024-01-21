@@ -1,5 +1,4 @@
-﻿using System.Reflection;
-using Microsoft.Extensions.Localization;
+﻿using Microsoft.Extensions.Localization;
 
 namespace DNCCorporate.Public.Web.Framework.TextResources;
 
@@ -11,9 +10,7 @@ public class TextResourceCultureLocalizer
 	{
 		ArgumentNullException.ThrowIfNull(factory, nameof(factory));
 
-		var fullName = Assembly.GetEntryAssembly()?.FullName ?? "DNCCorporate.Public.Web";
-		var assemblyName = new AssemblyName(fullName);
-		_localizer = factory.Create("TextResource", assemblyName.Name);
+		_localizer = factory.Create(string.Empty, string.Empty);
 	}
 
 	// if we have formatted string we can provide arguments         
@@ -25,5 +22,7 @@ public class TextResourceCultureLocalizer
 			: _localizer[key, arguments];
 	}
 
-	public string CurrentCulture => System.Globalization.CultureInfo.CurrentCulture.Name;
+#pragma warning disable CA1822 // Mark members as static
+    public string CurrentCulture => CurrentCultureHelper.CurrentCulture;
+#pragma warning restore CA1822 // Mark members as static
 }

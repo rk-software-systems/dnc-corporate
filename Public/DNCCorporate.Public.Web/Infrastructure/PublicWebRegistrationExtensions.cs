@@ -1,5 +1,7 @@
 ﻿using DNCCorporate.Contracts;
+using DNCCorporate.Public.Web.Framework.TextResources;
 using DNCCorporate.Services;
+using Microsoft.Extensions.Localization;
 
 namespace DNCCorporate.Public.Web.Infrastructure;
 
@@ -24,7 +26,9 @@ public static class PublicWebRegistrationExtensions
         // theme and text resources
         services.Configure<LocalizationSettings>(configuration.GetSection(nameof(LocalizationSettings)));
         services.Configure<ThemeSettings>(configuration.GetSection(nameof(ThemeSettings)));
-        services.AddScoped<ITextResourceQueryService, TextResourceQueryService>();
+        services.AddSingleton<ITextResourceQueryService, TextResourceQueryService>();
+        services.AddSingleton<IStringLocalizerFactory, JsonStringLocalizerFactory>();
+        services.AddSingleton<TextResourceCultureLocalizer>();
 
         // emails
         services.Configure<SmtpSettings>(configuration.GetSection(nameof(SmtpSettings)));

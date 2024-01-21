@@ -1,5 +1,4 @@
 ﻿using DNCCorporate.Public.Web.Framework.Localizations;
-using DNCCorporate.Public.Web.Framework.TextResources;
 using DNCCorporate.Public.Web.Framework.ThemeCustomizations;
 using DNCCorporate.Public.Web.Infrastructure;
 using DNCCorporate.Services;
@@ -16,21 +15,19 @@ public class Startup(IConfiguration configuration)
         // services
         services.RegisterDNCServices(configuration);
 
-        // infrastructure            
+        // localization            
         var localizationSettings = Configuration.GetSection(nameof(LocalizationSettings))
             .Get<LocalizationSettings>();
-
         services.ConfigureRequestLocalization(localizationSettings);
 
+        // theme
         var themeSettings = Configuration.GetSection(nameof(ThemeSettings))
             .Get<ThemeSettings>();
-
         services.Configure<RazorViewEngineOptions>(options =>
         {
             options.ViewLocationExpanders.Add(new ViewLocationExpander(themeSettings));
         });
-
-        services.AddSingleton<TextResourceCultureLocalizer>();
+       
 
         services.AddRazorPages()
                 .AddViewLocalization(o => o.ResourcesPath = $"Themes/{themeSettings.CurrentTheme}")

@@ -41,12 +41,6 @@
 		<Folder Include="Themes\Default\assets\" />
 	</ItemGroup>
 
-	<ItemGroup>
-		<EmbeddedResource Update="Themes\Default\TextResource.en.resx">
-			<SubType>Designer</SubType>
-		</EmbeddedResource>
-	</ItemGroup>
-
 	<!-- This target is used to iterate through the themes folder contents and copy it to assets public folder -->
 	<Target Name="PreBuild" BeforeTargets="PreBuildEvent">
 		<ItemGroup>
