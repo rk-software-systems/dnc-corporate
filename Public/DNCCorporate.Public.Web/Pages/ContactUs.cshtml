@@ -9,8 +9,8 @@
 @{
     Layout = "_Layout";
 
-    var Localizer = HttpContext.RequestServices.GetService<TextResourceCultureLocalizer>();
-    ViewData["Title"] = Localizer.Text("head-title.contact-us");
+    var l = HttpContext.RequestServices.GetRequiredService<TextResourceCultureLocalizer>();
+    ViewData["Title"] = l.Get("head-title.contact-us");
 }
 
 <vc:page-title page-name="Contact Us" />

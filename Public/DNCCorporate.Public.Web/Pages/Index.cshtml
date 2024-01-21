@@ -6,8 +6,8 @@
 
 @{
     Layout = "_Layout";
-    var localizer = HttpContext.RequestServices.GetService<TextResourceCultureLocalizer>();
-    ViewData["Title"] = localizer.Text("head-title.main");
+    var l = HttpContext.RequestServices.GetRequiredService<TextResourceCultureLocalizer>();
+    ViewData["Title"] = l.Get("head-title.main");
 }
 
 @section SubHeader

@@ -4,25 +4,38 @@ namespace DNCCorporate.Public.Web.Framework.TextResources;
 
 public class TextResourceCultureLocalizer
 {
-	private readonly IStringLocalizer _localizer;
+    #region fields  
 
-	public TextResourceCultureLocalizer(IStringLocalizerFactory factory)
-	{
-		ArgumentNullException.ThrowIfNull(factory, nameof(factory));
+    private readonly IStringLocalizer _localizer;
 
-		_localizer = factory.Create(string.Empty, string.Empty);
-	}
+    #endregion
 
-	// if we have formatted string we can provide arguments         
-	// e.g.: @Localizer.Text("Hello {0}", User.Name)
-	public LocalizedString Text(string key, params string[] arguments)
-	{
-		return arguments == null
-			? _localizer[key]
-			: _localizer[key, arguments];
-	}
+    #region props 
 
 #pragma warning disable CA1822 // Mark members as static
     public string CurrentCulture => CurrentCultureHelper.CurrentCulture;
 #pragma warning restore CA1822 // Mark members as static
+
+    #endregion
+
+    #region ctors
+
+    public TextResourceCultureLocalizer(IStringLocalizerFactory factory)
+    {
+        ArgumentNullException.ThrowIfNull(factory, nameof(factory));
+
+        _localizer = factory.Create(string.Empty, string.Empty);
+    }
+    #endregion
+
+    #region methods
+
+    public LocalizedString Get(string key, params string[] arguments)
+    {
+        return arguments == null
+            ? _localizer[key]
+            : _localizer[key, arguments];
+    }
+
+    #endregion
 }
