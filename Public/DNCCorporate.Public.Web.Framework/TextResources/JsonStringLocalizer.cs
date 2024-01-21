@@ -2,7 +2,7 @@
 using DNCCorporate.Services;
 using Microsoft.Extensions.Localization;
 
-namespace DNCCorporate.Public.Web.Framework.TextResources;
+namespace DNCCorporate.Public.Web.Framework;
 
 public class JsonStringLocalizer(ITextResourceQueryService textResourceQueryService) : IStringLocalizer
 {

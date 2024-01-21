@@ -17,11 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="HtmlHelpers\" />
-    <Folder Include="TagHelpers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\Libraries\DNCCorporate.Services\DNCCorporate.Services.csproj" />
   </ItemGroup>
 

@@ -1,33 +1,43 @@
-﻿using Microsoft.AspNetCore.Razor.TagHelpers;
+﻿using DNCCorporate.Services;
+using Microsoft.AspNetCore.Razor.TagHelpers;
 
-namespace DNCCorporate.Public.Web.Framework.TextResources;
+namespace DNCCorporate.Public.Web.Framework;
 
 [HtmlTargetElement(Attributes = TextResourceAttributeName)]
-public class TextResourceTagHelper : TagHelper
+public class TextResourceTagHelper(ITextResourceQueryService textResourceQueryService) : TagHelper
 {
+    #region consts  
     private const string TextResourceAttributeName = "dnc-tr";
 
-    //private ITextServiceAdapter _textServiceAdapter;
+    #endregion
+
+    #region fields            
+    
+    private readonly ITextResourceQueryService _textResourceQueryService = textResourceQueryService;
+    #endregion
+
+    #region props  
 
     [HtmlAttributeName(TextResourceAttributeName)]
-    public string TextResource { get; set; }
+    public required string Key { get; set; }
 
-    public TextResourceTagHelper(
-        //ITextServiceAdapter textServiceAdapter
-        )
-    {
-        //_textServiceAdapter = textServiceAdapter;
-    }
+    #endregion
+    #region ctors
+    #endregion
+
+    #region methods
 
     public async override Task ProcessAsync(TagHelperContext context,
         TagHelperOutput output)
     {
         ArgumentNullException.ThrowIfNull(output, nameof(output));
 
-
-        //var str = await _textServiceAdapter.GetResource(TextResource);
-        //output.Content.SetContent(str);
+        var culture = CurrentCultureHelper.CurrentCulture;
+        var str = _textResourceQueryService.GetTextResource(culture, Key);
+        output.Content.SetContent(str ?? Key);
 
         await base.ProcessAsync(context, output);
     }
+
+    #endregion
 }

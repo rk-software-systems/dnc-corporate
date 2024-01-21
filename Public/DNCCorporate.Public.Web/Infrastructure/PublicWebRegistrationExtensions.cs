@@ -1,5 +1,5 @@
 ﻿using DNCCorporate.Contracts;
-using DNCCorporate.Public.Web.Framework.TextResources;
+using DNCCorporate.Public.Web.Framework;
 using DNCCorporate.Services;
 using Microsoft.Extensions.Localization;
 

@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Localization;
 
-namespace DNCCorporate.Public.Web.Framework.TextResources;
+namespace DNCCorporate.Public.Web.Framework;
 
 public class TextResourceCultureLocalizer
 {

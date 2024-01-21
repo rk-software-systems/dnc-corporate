@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Localization;
 
-namespace DNCCorporate.Public.Web.Framework.Localizations;
+namespace DNCCorporate.Public.Web.Framework;
 
 public class RouteValueRequestCultureProvider(LocalizationSettings settings) : IRequestCultureProvider
 {

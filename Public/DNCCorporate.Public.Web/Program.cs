@@ -1,5 +1,4 @@
-﻿using DNCCorporate.Public.Web.Framework.Localizations;
-using DNCCorporate.Public.Web.Framework.ThemeCustomizations;
+﻿using DNCCorporate.Public.Web.Framework;
 using DNCCorporate.Public.Web.Infrastructure;
 using DNCCorporate.Services;
 using Microsoft.AspNetCore.HttpOverrides;
@@ -24,6 +23,12 @@ builder.Services.Configure<RazorViewEngineOptions>(options =>
     options.ViewLocationExpanders.Add(new ViewLocationExpander(themeSettings));
 });
 
+builder.Services.AddRazorPages()
+        .AddViewLocalization(o => o.ResourcesPath = $"Themes/{themeSettings.CurrentTheme}")
+        .AddRazorPagesOptions(o => {
+            o.Conventions.Add(new CultureTemplateRouteModelConvention());
+        });
+
 //Configure headers get correct RemoteIpAddress
 builder.Services.Configure<ForwardedHeadersOptions>(options =>
 {
@@ -31,12 +36,6 @@ builder.Services.Configure<ForwardedHeadersOptions>(options =>
     options.KnownNetworks.Clear();
     options.KnownProxies.Clear();
 });
-
-builder.Services.AddRazorPages()
-        .AddViewLocalization(o => o.ResourcesPath = $"Themes/{themeSettings.CurrentTheme}")
-        .AddRazorPagesOptions(o => {
-            o.Conventions.Add(new CultureTemplateRouteModelConvention());
-        });
 
 var app = builder.Build();
 

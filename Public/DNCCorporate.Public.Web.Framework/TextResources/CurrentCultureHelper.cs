@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
 
-namespace DNCCorporate.Public.Web.Framework.TextResources;
+namespace DNCCorporate.Public.Web.Framework;
 
 public static class CurrentCultureHelper
 {
