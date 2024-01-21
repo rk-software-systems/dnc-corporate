@@ -49,6 +49,8 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+app.UseForwardedHeaders();
+
 app.UseRequestLocalization();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
