@@ -15,44 +15,10 @@
 		<AnalysisMode>AllEnabledByDefault</AnalysisMode>
 		<AnalysisLevel>latest</AnalysisLevel>
 	</PropertyGroup>
-
+	
 	<ItemGroup>
-		<Compile Remove="Themes\RKSoftware\theme\**" />
-		<Content Remove="Themes\RKSoftware\theme\**" />
-		<EmbeddedResource Remove="Themes\RKSoftware\theme\**" />
-		<None Remove="Themes\RKSoftware\theme\**" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<Content Remove="wwwroot\themes\.gitignore" />
-		<Content Remove="wwwroot\themes\RKSoftware\img\custom\4799410.jpg" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <None Remove="Themes\RKSoftware\assets\img\custom\close-up-image-programer-working-his-desk-office.jpg" />
-	  <None Remove="Themes\RKSoftware\assets\img\custom\computer-custom-px.jpg" />
-	  <None Remove="Themes\RKSoftware\assets\img\custom\person-working-html-computer.jpg" />
-	  <None Remove="Themes\RKSoftware\assets\img\custom\usiness-people-meeting-discuss-situation-marketing.jpg" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Content Include="Themes\RKSoftware\assets\img\custom\close-up-image-programer-working-his-desk-office.jpg">
-	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-	    <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-	  </Content>
-	  <Content Include="Themes\RKSoftware\assets\img\custom\computer-custom-px.jpg">
-	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-	    <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-	  </Content>
-	  <Content Include="Themes\RKSoftware\assets\img\custom\person-working-html-computer.jpg">
-	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-	    <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-	  </Content>
-	  <Content Include="Themes\RKSoftware\assets\img\custom\usiness-people-meeting-discuss-situation-marketing.jpg">
-	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-	    <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-	  </Content>
-	</ItemGroup>
+		<Content Remove="wwwroot\themes\.gitignore" />		
+	</ItemGroup>	
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="8.0.1" />
@@ -68,31 +34,11 @@
 
 	<ItemGroup>
 		<None Include="wwwroot\themes\.gitignore" />
-		<None Include="wwwroot\themes\RKSoftware\img\custom\4799410.jpg" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<Folder Include="Controllers\" />
 		<Folder Include="Themes\Default\assets\" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Content Update="wwwroot\themes\RKSoftware\img\custom\close-up-image-programer-working-his-desk-office.jpg">
-	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-	    <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-	  </Content>
-	  <Content Update="wwwroot\themes\RKSoftware\img\custom\computer-custom-px.jpg">
-	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-	    <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-	  </Content>
-	  <Content Update="wwwroot\themes\RKSoftware\img\custom\person-working-html-computer.jpg">
-	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-	    <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-	  </Content>
-	  <Content Update="wwwroot\themes\RKSoftware\img\custom\usiness-people-meeting-discuss-situation-marketing.jpg">
-	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-	    <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-	  </Content>
 	</ItemGroup>
 
 	<ItemGroup>
