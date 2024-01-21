@@ -1,5 +1,5 @@
 ﻿using DNCCorporate.Public.Web;
-using Microsoft.AspNetCore.Builder;
+using DNCCorporate.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +9,11 @@ startup.ConfigureServices(builder.Services);
 
 var app = builder.Build();
 
+// init text resources
+using var scope = app.Services.CreateScope();
+var textResourceQueryService = scope.ServiceProvider.GetRequiredService<ITextResourceQueryService>();
+await textResourceQueryService.LoadAll();
+
 startup.Configure(app, app.Environment);
 
-app.Run();
+await app.RunAsync();

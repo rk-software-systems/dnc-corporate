@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.Razor;
+﻿using DNCCorporate.Services;
+using Microsoft.AspNetCore.Mvc.Razor;
 
 namespace DNCCorporate.Public.Web.Framework.ThemeCustomizations;
 
@@ -13,7 +14,7 @@ public class ViewLocationExpander(ThemeSettings settings) : IViewLocationExpande
         ViewLocationExpanderContext context,
         IEnumerable<string> viewLocations)
     {
-        string[] locations = new string[]
+        string[] locations =
         {
             $"/Themes/{_settings.CurrentTheme}/Shared/{{0}}.cshtml",
             $"/Themes/{_settings.CurrentTheme}/{{2}}/{{1}}/{{0}}.cshtml",

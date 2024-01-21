@@ -15,11 +15,21 @@ public static class PublicWebRegistrationExtensions
     /// <param name="configuration"><see cref="IConfiguration"/></param>
     public static void RegisterDNCServices(this IServiceCollection services, IConfiguration configuration)
     {
+        ArgumentNullException.ThrowIfNull(configuration, nameof(configuration));
+
         services.AddScoped<IWorkContext, WebWorkContext>();
 
         services.Configure<BusinessSettings>(configuration.GetSection(nameof(BusinessSettings)));
 
+        // theme and text resources
+        services.Configure<LocalizationSettings>(configuration.GetSection(nameof(LocalizationSettings)));
+        services.Configure<ThemeSettings>(configuration.GetSection(nameof(ThemeSettings)));
+        services.AddScoped<ITextResourceQueryService, TextResourceQueryService>();
+
+        // emails
         services.Configure<SmtpSettings>(configuration.GetSection(nameof(SmtpSettings)));
         services.AddScoped<IEmailSenderService, EmailSenderService>();
+
+
     }
 }
