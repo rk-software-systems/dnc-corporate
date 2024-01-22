@@ -2,12 +2,13 @@
 @using DNCCorporate.Public.Web.Framework;
 @using Microsoft.Extensions.DependencyInjection;
 @addTagHelper *, DNCCorporate.Public.Web
+@addTagHelper *, DNCCorporate.Public.Web.Framework
 @model DNCCorporate.Public.Web.Pages.IndexModel
 
 @{
     Layout = "_Layout";
     var l = HttpContext.RequestServices.GetRequiredService<TextResourceCultureLocalizer>();
-    ViewData["Title"] = l.Get("head-title.main");
+    ViewData["Title"] = l.Get("home.head-title");
 }
 
 @section SubHeader

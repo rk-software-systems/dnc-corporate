@@ -34,7 +34,7 @@ public class TextResourceTagHelper(ITextResourceQueryService textResourceQuerySe
 
         var culture = CurrentCultureHelper.CurrentCulture;
         var str = _textResourceQueryService.GetTextResource(culture, Key);
-        output.Content.SetContent(str ?? Key);
+        output.Content.SetHtmlContent(str ?? Key);
 
         await base.ProcessAsync(context, output);
     }
