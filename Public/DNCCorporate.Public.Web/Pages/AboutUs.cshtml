@@ -8,8 +8,8 @@
   Layout = "_Layout";
 
   var l = HttpContext.RequestServices.GetRequiredService<TextResourceCultureLocalizer>();
-  ViewData["Title"] = l.Get("head-title.about-us");  
+    ViewData["Title"] = l.Get("about-us.head-title");
 }
 
-<vc:page-title page-name="About Us" />
+<vc:page-title page-name="@l.Get("about-us.page-title")" />
 <vc:about-us />
