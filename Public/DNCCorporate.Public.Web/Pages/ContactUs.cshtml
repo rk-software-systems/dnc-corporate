@@ -102,44 +102,39 @@
         <div class="col-lg-6">
 
             <div class="appear-animation" data-appear-animation="fadeIn" data-appear-animation-delay="800">
-                <h4 class="mt-2 mb-1">Our <strong>Office</strong></h4>
+                <h4 class="mt-2 mb-1" dnc-tr="contact-us.office.title"></h4>
                 <ul class="list list-icons list-icons-style-2 mt-2">
                     <li>
                         <i class="fas fa-map-marker-alt top-6"></i>
-                        <strong class="text-dark">Address:</strong> 1234 Street Name, City Name, United States
+                        @Html.Raw(L.Get("contact-us.office.address"))                        
                     </li>
                     <li>
                         <i class="fas fa-phone top-6"></i>
-                        <strong class="text-dark">Phone:</strong> (123) 456-789
+                        @Html.Raw(L.Get("contact-us.office.phone"))
                     </li>
                     <li>
                         <i class="fas fa-envelope top-6"></i>
-                        <strong class="text-dark">Email:</strong>
-                        <a href="mailto:mail@example.com">mail@example.com</a>
+                        @Html.Raw(L.Get("contact-us.office.email"))
                     </li>
                 </ul>
             </div>
 
             <div class="appear-animation" data-appear-animation="fadeIn" data-appear-animation-delay="950">
-                <h4 class="pt-5">Business <strong>Hours</strong></h4>
+                <h4 class="pt-5" dnc-tr="contact-us.business-hours.title"></h4>
                 <ul class="list list-icons list-dark mt-2">
                     <li>
                         <i class="far fa-clock top-6"></i>
-                        Monday - Friday - 9am to 5pm
+                        @Html.Raw(L.Get("contact-us.business-hours.line1"))
                     </li>
                     <li>
                         <i class="far fa-clock top-6"></i>
-                        Saturday - 9am to 2pm
-                    </li>
-                    <li>
-                        <i class="far fa-clock top-6"></i>
-                        Sunday - Closed
+                        @Html.Raw(L.Get("contact-us.business-hours.line2"))
                     </li>
                 </ul>
             </div>
 
-            <h4 class="pt-5">Get in <strong>Touch</strong></h4>
-            <p class="lead mb-0 text-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eget leo at velit imperdiet varius. In eu ipsum vitae velit congue iaculis vitae at risus. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <h4 class="pt-5" dnc-tr="contact-us.in-touch.title"></h4>
+            <p class="lead mb-0 text-4" dnc-tr="contact-us.in-touch.content"></p>
         </div>
     </div>
 </div>
