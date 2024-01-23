@@ -1,15 +1,17 @@
 ﻿@page
 @using DNCCorporate.Public.Web.Framework;
 @using Microsoft.Extensions.DependencyInjection;
+
 @addTagHelper *, DNCCorporate.Public.Web
 @model DNCCorporate.Public.Web.Pages.AboutUsModel
+
+@inject DNCCorporate.Public.Web.Framework.TextResourceCultureLocalizer L;
 
 @{
   Layout = "_Layout";
 
-  var l = HttpContext.RequestServices.GetRequiredService<TextResourceCultureLocalizer>();
-    ViewData["Title"] = l.Get("about-us.head-title");
+  ViewData["Title"] = L.Get("about-us.head-title");
 }
 
-<vc:page-title page-name="@l.Get("about-us.page-title")" />
+<vc:page-title page-name="@L.Get("about-us.page-title")" />
 <vc:about-us />

@@ -5,10 +5,11 @@
 @addTagHelper *, DNCCorporate.Public.Web.Framework
 @model DNCCorporate.Public.Web.Pages.IndexModel
 
+@inject DNCCorporate.Public.Web.Framework.TextResourceCultureLocalizer L;
+
 @{
     Layout = "_Layout";
-    var l = HttpContext.RequestServices.GetRequiredService<TextResourceCultureLocalizer>();
-    ViewData["Title"] = l.Get("home.head-title");
+    ViewData["Title"] = L.Get("home.head-title");
 }
 
 @section SubHeader
