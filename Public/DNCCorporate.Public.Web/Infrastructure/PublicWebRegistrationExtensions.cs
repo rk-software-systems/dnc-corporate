@@ -1,4 +1,5 @@
 ﻿using DNCCorporate.Contracts;
+using DNCCorporate.Public.Web.Framework;
 using DNCCorporate.Services;
 
 namespace DNCCorporate.Public.Web.Infrastructure;
@@ -21,5 +22,6 @@ public static class PublicWebRegistrationExtensions
 
         services.Configure<SmtpSettings>(configuration.GetSection(nameof(SmtpSettings)));
         services.AddScoped<IEmailSenderService, EmailSenderService>();
+        services.AddScoped<IMetaTagService, MetaTagService>();
     }
 }
