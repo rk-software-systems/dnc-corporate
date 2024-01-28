@@ -1,5 +1,6 @@
 using System.Globalization;
 using System.Text;
+using DNCCorporate.Public.Web.Framework;
 using DNCCorporate.Public.Web.Infrastructure;
 using DNCCorporate.Services;
 using DNCCorporate.ViewModels;
@@ -9,18 +10,19 @@ using Microsoft.Extensions.Options;
 
 namespace DNCCorporate.Public.Web.Pages;
 
-public class ContactUsModel(IEmailSenderService emailSenderService, IOptions<BusinessSettings> businessSettingsOptions) : PageModel
+public class ContactUsModel(IEmailSenderService emailSenderService, IOptions<BusinessSettings> businessSettingsOptions, IMetaTagService metaTagService) : PageModel
 {
     #region fields       
 
     private readonly IEmailSenderService _emailSenderService = emailSenderService;
     private readonly BusinessSettings _businessSettings = businessSettingsOptions.Value;
-
     #endregion
 
     #region properties
 
     public ContactUsFormRequestViewModel Form { get; set; } = new ContactUsFormRequestViewModel(string.Empty, string.Empty, string.Empty, string.Empty);
+
+    public const string PageName = "contactus";
 
     #endregion
 
@@ -29,11 +31,12 @@ public class ContactUsModel(IEmailSenderService emailSenderService, IOptions<Bus
 
     public void OnGet()
     {
+        metaTagService.SetPageMetaTags(PageName);
     }
 
     public async Task<IActionResult> OnPost(ContactUsRequestViewModel request)
     {
-        var isSuccess = ModelState.IsValid;            
+        var isSuccess = ModelState.IsValid;
 
         if (ModelState.IsValid)
         {

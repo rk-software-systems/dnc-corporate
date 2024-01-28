@@ -25,9 +25,11 @@ builder.Services.Configure<RazorViewEngineOptions>(options =>
 
 builder.Services.AddRazorPages()
         .AddViewLocalization(o => o.ResourcesPath = $"Themes/{themeSettings.CurrentTheme}")
-        .AddRazorPagesOptions(o => {
+        .AddRazorPagesOptions(o =>
+        {
             o.Conventions.Add(new CultureTemplateRouteModelConvention());
         });
+builder.Services.AddHttpContextAccessor();
 
 //Configure headers get correct RemoteIpAddress
 builder.Services.Configure<ForwardedHeadersOptions>(options =>

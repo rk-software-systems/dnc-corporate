@@ -1,5 +1,6 @@
 ﻿using DNCCorporate.Services;
 using Microsoft.AspNetCore.Html;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -21,6 +22,14 @@ public static class ThemeHtmlHelper
         ArgumentNullException.ThrowIfNull(html, nameof(html));
 
         var settings = html.ViewContext.HttpContext.RequestServices.GetRequiredService<IOptions<ThemeSettings>>();
+        return new HtmlString($"/themes/{settings.Value.CurrentTheme}/");
+    }
+
+    public static HtmlString ThemeContentPath(this HttpContext context)
+    {
+        ArgumentNullException.ThrowIfNull(context, nameof(context));
+
+        var settings = context.RequestServices.GetRequiredService<IOptions<ThemeSettings>>();
         return new HtmlString($"/themes/{settings.Value.CurrentTheme}/");
     }
 }
