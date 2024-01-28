@@ -23,6 +23,8 @@ public static class PublicWebRegistrationExtensions
 
         services.Configure<BusinessSettings>(configuration.GetSection(nameof(BusinessSettings)));
 
+        services.AddSingleton<IApplicationDateService, ApplicationDateService>();
+
         // theme and text resources
         services.Configure<LocalizationSettings>(configuration.GetSection(nameof(LocalizationSettings)));
         services.Configure<ThemeSettings>(configuration.GetSection(nameof(ThemeSettings)));
@@ -34,5 +36,8 @@ public static class PublicWebRegistrationExtensions
         services.Configure<SmtpSettings>(configuration.GetSection(nameof(SmtpSettings)));
         services.AddScoped<IEmailSenderService, EmailSenderService>();
         services.AddScoped<IMetaTagService, MetaTagService>();
+
+        // sitemap
+        services.AddScoped<ISitemapService, SitemapService>();
     }
 }

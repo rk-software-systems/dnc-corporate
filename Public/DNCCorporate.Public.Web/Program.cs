@@ -1,9 +1,9 @@
-﻿using DNCCorporate.Public.Web.Framework;
+﻿using System.Net.Mime;
+using DNCCorporate.Public.Web.Framework;
 using DNCCorporate.Public.Web.Infrastructure;
 using DNCCorporate.Services;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Mvc.Razor;
-
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -41,6 +41,14 @@ builder.Services.Configure<ForwardedHeadersOptions>(options =>
 
 var app = builder.Build();
 
+// init application dates
+var applicationDateService = app.Services.GetRequiredService<IApplicationDateService>();
+var _logApplicationIsStartingOnInformation = LoggerMessage.Define<DateTime>(
+       LogLevel.Information,
+       10000001,
+       "Application is starting on '{StartedOn}'");
+_logApplicationIsStartingOnInformation(app.Logger, applicationDateService.StartedOnUtc, null);
+
 // init text resources
 var textResourceQueryService = app.Services.GetRequiredService<ITextResourceQueryService>();
 await textResourceQueryService.LoadAll();
@@ -53,11 +61,29 @@ if (!app.Environment.IsDevelopment())
 
 app.UseForwardedHeaders();
 
-app.UseRequestLocalization();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-app.UseRouting();
 
+// Configure the Minimal API
+app.Map("/api", app =>
+{
+    app.UseRouting();
+    app.UseEndpoints(endpoints =>
+    {
+        endpoints.MapGet("/sitemap.xml", (HttpRequest request, ISitemapService sitemapService) =>
+        {
+            var baseUrl = new Uri($"{request.Scheme}://{request.Host}");
+            var sitemap = sitemapService.GetSitemap(baseUrl);
+
+            return Results.Content(sitemap, contentType: MediaTypeNames.Application.Xml, statusCode: StatusCodes.Status200OK);
+        });
+    });
+});
+
+// Configure Razor Pages
+app.UseRequestLocalization();
 app.MapRazorPages();
 
 await app.RunAsync();
+
+
