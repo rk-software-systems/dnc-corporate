@@ -15,14 +15,18 @@ public class CultureTemplateRouteModelConvention : IPageRouteModelConvention
         for (var i = 0; i < selectorCount; i++)
         {
             var selector = model.Selectors[i];
-            model.Selectors.Add(new SelectorModel
+            if (!string.IsNullOrEmpty(selector.AttributeRouteModel?.Template))
             {
-                AttributeRouteModel = new AttributeRouteModel
+                model.Selectors.Add(new SelectorModel
                 {
-                    Order = -1,
-                    Template = AttributeRouteModel.CombineTemplates("{culture?}", selector.AttributeRouteModel.Template),
-                }
-            });
+                    AttributeRouteModel = new AttributeRouteModel
+                    {
+                        Name = selector.AttributeRouteModel.Name,
+                        Order = -1,
+                        Template = AttributeRouteModel.CombineTemplates("{culture?}", selector.AttributeRouteModel.Template),
+                    }
+                });
+            }
         }
     }
 }

@@ -3,7 +3,9 @@ using DNCCorporate.Public.Web.Framework;
 using DNCCorporate.Public.Web.Infrastructure;
 using DNCCorporate.Services;
 using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.AspNetCore.Mvc.Razor;
+using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,10 +25,10 @@ builder.Services.Configure<RazorViewEngineOptions>(options =>
     options.ViewLocationExpanders.Add(new ViewLocationExpander(themeSettings));
 });
 
-builder.Services.AddRazorPages()
+builder.Services.AddRazorPages()    
         .AddViewLocalization(o => o.ResourcesPath = $"Themes/{themeSettings.CurrentTheme}")
         .AddRazorPagesOptions(o =>
-        {
+        {            
             o.Conventions.Add(new CultureTemplateRouteModelConvention());
         });
 builder.Services.AddHttpContextAccessor();

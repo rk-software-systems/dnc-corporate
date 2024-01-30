@@ -9,7 +9,7 @@ namespace DNCCorporate.Public.Web.Framework;
 public class SitemapService : ISitemapService
 {
     #region fields    
-    
+
     private readonly LocalizationSettings _localizationSettings;
     private readonly EndpointDataSource _endpointsDataSource;
     private readonly IApplicationDateService _applicationDateService;
@@ -19,7 +19,7 @@ public class SitemapService : ISitemapService
 
     public SitemapService(
         IApplicationDateService applicationDateService,
-        IOptions<LocalizationSettings> localizationSettingsOptions, 
+        IOptions<LocalizationSettings> localizationSettingsOptions,
         EndpointDataSource EndpointsDataSource)
     {
         ArgumentNullException.ThrowIfNull(localizationSettingsOptions, nameof(localizationSettingsOptions));
@@ -38,23 +38,18 @@ public class SitemapService : ISitemapService
         var indexNode = new SitemapNode(baseUrl, _applicationDateService.StartedOnUtc, SitemapFrequency.Monthly, 1, false);
         nodes.Add(indexNode);
 
-        var endpoints = GetAvilableEndpoints();       
+        var endpoints = GetAvilableEndpoints();
         foreach (var endpoint in endpoints)
         {
-            if (_localizationSettings.AvailableCultures.Length == 0)
+            var node = new SitemapNode(new Uri(baseUrl, endpoint), _applicationDateService.StartedOnUtc, SitemapFrequency.Monthly, 0.9, false);
+            nodes.Add(node);
+
+            foreach (var culture in _localizationSettings.AvailableCultures)
             {
-                var node = new SitemapNode(new Uri(baseUrl, endpoint), _applicationDateService.StartedOnUtc, SitemapFrequency.Monthly, 0.9, false);
-                nodes.Add(node);
+                var cultureNode = new SitemapNode(new Uri(baseUrl, $"{culture}{endpoint}"), _applicationDateService.StartedOnUtc, SitemapFrequency.Monthly, 0.9, false);
+                nodes.Add(cultureNode);
             }
-            else
-            {
-                foreach (var culture in _localizationSettings.AvailableCultures)
-                {
-                    var cultureNode = new SitemapNode(new Uri(baseUrl, $"{culture}{endpoint}"), _applicationDateService.StartedOnUtc, SitemapFrequency.Monthly, 0.9, false);
-                    nodes.Add(cultureNode);
-                }
-            }
-        }        
+        }
 
         var sitemapGenerator = new SimpleSiteMap.SitemapService();
         return sitemapGenerator.ConvertToXmlUrlset(nodes);
