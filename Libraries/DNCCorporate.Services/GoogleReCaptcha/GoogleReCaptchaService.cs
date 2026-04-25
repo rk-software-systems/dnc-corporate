@@ -28,14 +28,22 @@ public class GoogleReCaptchaService(HttpClient httpClient, IOptions<GoogleReCapt
 
     public async Task<bool> Verify(string token)
     {
-        var url = new Uri($"https://www.google.com/recaptcha/api/siteverify?secret={_settings.SecretKey}&response={token}");
-        var response = await _httpClient.PostAsync(url, null);
+        var url = new Uri("https://www.google.com/recaptcha/api/siteverify");
+        using var content = new FormUrlEncodedContent(
+            [
+                new KeyValuePair<string, string>("secret", _settings.SecretKey),
+                new KeyValuePair<string, string>("response", token)
+            ]);
+        var response = await _httpClient.PostAsync(url, content);
 
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            return false;
+        }
 
         var json = await response.Content.ReadAsStringAsync();
         var verifyResponse = JsonSerializer.Deserialize<VerifyResponseViewModel>(json, _jsonOptions);
-        
+
         return verifyResponse?.Success == true && verifyResponse.Score >= _settings.MinimumScore;
     }
 

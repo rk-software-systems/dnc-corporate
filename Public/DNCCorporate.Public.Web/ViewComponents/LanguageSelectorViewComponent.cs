@@ -28,7 +28,7 @@ public class LanguageSelectorViewComponent(IOptions<RequestLocalizationOptions> 
             var value = r.Value?.ToString();
             if (value != null)
             {
-                routeData.Add(r.Key, value);
+                routeData.TryAdd(r.Key, value);
             }
         }
 
@@ -37,7 +37,7 @@ public class LanguageSelectorViewComponent(IOptions<RequestLocalizationOptions> 
             var value = qs.Value.ToString();
             if (value != null)
             {
-                routeData.Add(qs.Key, value);
+                routeData.TryAdd(qs.Key, value);
             }
         }
 
