@@ -1,4 +1,4 @@
-﻿using System.Collections.Immutable;
+﻿using System.Collections.Frozen;
 
 namespace DNCCorporate.Services;
 
@@ -8,7 +8,7 @@ public class LocalizationSettings
 
     public required string AvailableCulturesStr { get; set; }
 
-    public ImmutableArray<string> AvailableCultures
+    public FrozenSet<string> AvailableCultures
     {
         get
         {
@@ -16,9 +16,9 @@ public class LocalizationSettings
             {
                 return AvailableCulturesStr
                     .Split(';')
-                    .ToImmutableArray();
+                    .ToFrozenSet();
             }
-            return ImmutableArray<string>.Empty;
+            return [];
         }
     }
 }

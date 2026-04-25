@@ -1,5 +1,4 @@
 ﻿using System.Collections.Frozen;
-using System.Collections.Immutable;
 using System.Text.Json;
 using Microsoft.Extensions.Options;
 
@@ -77,7 +76,7 @@ public class TextResourceQueryService : ITextResourceQueryService
 
     #region helpers
 
-    private ImmutableDictionary<string, string> GetFiles()
+    private FrozenDictionary<string, string> GetFiles()
     {
         var path = GetFileDirectory();
         var files = Directory.GetFiles(path, "*.json")
@@ -92,7 +91,7 @@ public class TextResourceQueryService : ITextResourceQueryService
                 };
             })
             .Where(x => x.Key != null)
-            .ToImmutableDictionary(x => x.Key!, x => x.Value);
+            .ToFrozenDictionary(x => x.Key!, x => x.Value);
 
         return files;
     }

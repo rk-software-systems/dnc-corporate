@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
+﻿using System.Globalization;
 using DNCCorporate.Public.Web.Models;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Options;
@@ -18,23 +14,31 @@ public class LanguageSelectorViewComponent(IOptions<RequestLocalizationOptions> 
     {
         var requestCulture = CultureInfo.CurrentCulture;
 
-        var supportedCultures = _localizationOptions.SupportedUICultures
+        var supportedCultures = _localizationOptions.SupportedUICultures?
             .Select(c => new SelectListItem
             {
                 Value = c.Name,
                 Text = c.DisplayName
-            }).ToList();
+            }).ToList() ?? [];
 
         var routeData = new Dictionary<string, string>();
 
         foreach (var r in ViewContext.RouteData.Values)
         {
-            routeData.Add(r.Key, r.Value.ToString());
+            var value = r.Value?.ToString();
+            if (value != null)
+            {
+                routeData.TryAdd(r.Key, value);
+            }
         }
 
         foreach (var qs in HttpContext.Request.Query)
         {
-            routeData.Add(qs.Key, qs.Value);
+            var value = qs.Value.ToString();
+            if (value != null)
+            {
+                routeData.TryAdd(qs.Key, value);
+            }
         }
 
         var result = new LanguageSelectorViewModel(requestCulture, supportedCultures, routeData);

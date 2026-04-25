@@ -10,17 +10,25 @@ using Microsoft.Extensions.Options;
 
 namespace DNCCorporate.Public.Web.Pages;
 
-public class ContactUsModel(IEmailSenderService emailSenderService, IOptions<BusinessSettings> businessSettingsOptions, IMetaTagService metaTagService) : PageModel
+public class ContactUsModel(
+    IGoogleReCaptchaService googleReCaptchaService,
+    IEmailSenderService emailSenderService,
+    IOptions<BusinessSettings> businessSettingsOptions, 
+    IMetaTagService metaTagService) : PageModel
 {
     #region fields       
 
+    private readonly IGoogleReCaptchaService _googleReCaptchaService = googleReCaptchaService;
+    private readonly IMetaTagService _metaTagService = metaTagService;
     private readonly IEmailSenderService _emailSenderService = emailSenderService;
     private readonly BusinessSettings _businessSettings = businessSettingsOptions.Value;
     #endregion
 
     #region properties
 
-    public ContactUsFormRequestViewModel Form { get; set; } = new ContactUsFormRequestViewModel(string.Empty, string.Empty, string.Empty, string.Empty);
+    public string ReCaptchaSiteKey => _googleReCaptchaService.SiteKey;
+
+    public ContactUsFormRequestViewModel Form { get; set; } = new ContactUsFormRequestViewModel(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty);
 
     public const string PageName = "contactus";
 
@@ -31,15 +39,34 @@ public class ContactUsModel(IEmailSenderService emailSenderService, IOptions<Bus
 
     public void OnGet()
     {
-        metaTagService.SetPageMetaTags(PageName);
+        _metaTagService.SetPageMetaTags(PageName);
     }
 
     public async Task<IActionResult> OnPost(ContactUsRequestViewModel request)
     {
+        ArgumentNullException.ThrowIfNull(request, nameof(request));
+
         var isSuccess = ModelState.IsValid;
 
-        if (ModelState.IsValid)
+        if (isSuccess)
         {
+            if (string.IsNullOrEmpty(request.Form.ReCaptchaToken))
+            {
+                isSuccess = false;
+            }
+            else
+            {
+                var isCaptchaValid = await _googleReCaptchaService.Verify(request.Form.ReCaptchaToken);
+                if (!isCaptchaValid)
+                {
+                    isSuccess = false;
+                }
+            }
+        }
+
+        if (isSuccess)
+        {
+#pragma warning disable CA1031 // Do not catch general exception types
             try
             {
                 var sb = new StringBuilder();
@@ -61,6 +88,7 @@ public class ContactUsModel(IEmailSenderService emailSenderService, IOptions<Bus
             {
                 isSuccess = false;
             }
+#pragma warning restore CA1031 // Do not catch general exception types
         }
 
         var result = new ContactUsResponseViewModel(isSuccess);

@@ -3,15 +3,9 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace DNCCorporate.Public.Web.Pages;
 
-public class IndexModel : PageModel
+public class IndexModel(IMetaTagService metaTagService) : PageModel
 {
-    private readonly IMetaTagService _metaTagService;
-
-    public IndexModel(IMetaTagService metaTagService)
-    {
-        _metaTagService = metaTagService;
-    }
-
+    private readonly IMetaTagService _metaTagService = metaTagService;
     public const string PageName = "home";
 
     public void OnGet()

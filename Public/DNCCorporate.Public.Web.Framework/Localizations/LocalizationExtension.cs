@@ -26,8 +26,8 @@ public static class LocalizationExtension
         services.Configure<RequestLocalizationOptions>(ops =>
         {
             ops.DefaultRequestCulture = new RequestCulture(settings.DefaultCulture);
-            ops.SupportedCultures = cultures.OrderBy(x => x.EnglishName).ToList();
-            ops.SupportedUICultures = cultures.OrderBy(x => x.EnglishName).ToList();
+            ops.SupportedCultures = [.. cultures.OrderBy(x => x.EnglishName)];
+            ops.SupportedUICultures = [.. cultures.OrderBy(x => x.EnglishName)];
 
             // add RouteValueRequestCultureProvider to the beginning of the providers list. 
             ops.RequestCultureProviders.Insert(0, new RouteValueRequestCultureProvider(settings));

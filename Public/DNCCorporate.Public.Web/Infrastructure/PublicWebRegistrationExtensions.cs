@@ -39,5 +39,9 @@ public static class PublicWebRegistrationExtensions
 
         // sitemap
         services.AddScoped<ISitemapService, SitemapService>();
+
+        // reCAPTCHA
+        services.Configure<GoogleReCaptchaSettings>(configuration.GetSection(nameof(GoogleReCaptchaSettings)));
+        services.AddHttpClient<IGoogleReCaptchaService, GoogleReCaptchaService>();
     }
 }
