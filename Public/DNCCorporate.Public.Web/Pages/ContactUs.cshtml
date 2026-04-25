@@ -40,6 +40,7 @@
                   data-ajax-complete="completed"
                   data-ajax-success="succeed"
                   data-ajax-failure="failed"
+                  data-recaptcha-site-key="@Model.ReCaptchaSiteKey"
                   novalidate>
 
                 <div class="contact-form-success alert alert-success mt-4 d-none">
@@ -88,6 +89,7 @@
                         <span asp-validation-for="Form.Message"></span>
                     </div>
                 </div>
+                <input type="hidden" asp-for="Form.ReCaptchaToken" />
                 <div class="form-row">
                     <div class="form-group col">
                         <input type="submit" value="@L.Get("contact-us.form.send-btn")" class="btn btn-primary btn-modern">
@@ -139,6 +141,7 @@
 
 @section Scripts
 {
+    <script src="https://www.google.com/recaptcha/api.js?render=@Model.ReCaptchaSiteKey"></script>    
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");        
     }

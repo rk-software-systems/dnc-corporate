@@ -11,6 +11,8 @@ var builder = WebApplication.CreateBuilder(args);
 // services
 builder.Services.RegisterDNCServices(builder.Configuration);
 
+
+
 // localization            
 var localizationSettings = builder.Configuration.GetSection(nameof(LocalizationSettings))
     .Get<LocalizationSettings>() ?? throw new SettingsNotFoundException(nameof(LocalizationSettings));
