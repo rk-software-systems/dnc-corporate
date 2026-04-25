@@ -34,7 +34,7 @@ public class GoogleReCaptchaService(HttpClient httpClient, IOptions<GoogleReCapt
                 new KeyValuePair<string, string>("secret", _settings.SecretKey),
                 new KeyValuePair<string, string>("response", token)
             ]);
-        var response = await _httpClient.PostAsync(url, content);
+        using var response = await _httpClient.PostAsync(url, content);
 
         if (!response.IsSuccessStatusCode)
         {
