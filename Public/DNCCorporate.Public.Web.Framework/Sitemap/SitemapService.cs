@@ -65,6 +65,7 @@ public class SitemapService : ISitemapService
             .SelectMany(x => x.Metadata)
             .Select(x => (x as PageActionDescriptor)?.ViewEnginePath)
             .Where(x => x != null)
+            .Select(x => x!)
             .Distinct()
             .ToList();
 

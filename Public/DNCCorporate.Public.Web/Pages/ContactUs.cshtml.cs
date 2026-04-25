@@ -36,10 +36,13 @@ public class ContactUsModel(IEmailSenderService emailSenderService, IOptions<Bus
 
     public async Task<IActionResult> OnPost(ContactUsRequestViewModel request)
     {
+        ArgumentNullException.ThrowIfNull(request, nameof(request));
+
         var isSuccess = ModelState.IsValid;
 
         if (ModelState.IsValid)
         {
+#pragma warning disable CA1031 // Do not catch general exception types
             try
             {
                 var sb = new StringBuilder();
@@ -61,6 +64,7 @@ public class ContactUsModel(IEmailSenderService emailSenderService, IOptions<Bus
             {
                 isSuccess = false;
             }
+#pragma warning restore CA1031 // Do not catch general exception types
         }
 
         var result = new ContactUsResponseViewModel(isSuccess);

@@ -13,7 +13,7 @@ public class RouteValueRequestCultureProvider(LocalizationSettings settings) : I
     /// </summary>
     /// <param name="httpContext"></param>
     /// <returns>ProviderCultureResult depends on path {culture} route parameter, or default culture</returns>
-    public Task<ProviderCultureResult> DetermineProviderCultureResult(HttpContext httpContext)
+    public async Task<ProviderCultureResult?> DetermineProviderCultureResult(HttpContext httpContext)
     {
         ArgumentNullException.ThrowIfNull(httpContext, nameof(httpContext));
 
@@ -21,20 +21,20 @@ public class RouteValueRequestCultureProvider(LocalizationSettings settings) : I
 
         if (!path.HasValue)
         {
-            return Task.FromResult(new ProviderCultureResult(_settings.DefaultCulture));
+            return await Task.FromResult(new ProviderCultureResult(_settings.DefaultCulture));
         }
 
         var routeValues = path.Value.Split('/', StringSplitOptions.RemoveEmptyEntries);
         if (routeValues.Length <= 0)
         {
-            return Task.FromResult(new ProviderCultureResult(_settings.DefaultCulture));
+            return await Task.FromResult(new ProviderCultureResult(_settings.DefaultCulture));
         }
 
         if (!_settings.AvailableCultures.Any(x => x.Equals(routeValues[0], StringComparison.OrdinalIgnoreCase)))
         {
-            return Task.FromResult(new ProviderCultureResult(_settings.DefaultCulture));
+            return await Task.FromResult(new ProviderCultureResult(_settings.DefaultCulture));
         }
 
-        return Task.FromResult(new ProviderCultureResult(routeValues[0]));
+        return await Task.FromResult(new ProviderCultureResult(routeValues[0]));
     }
 }

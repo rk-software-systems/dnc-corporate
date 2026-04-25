@@ -1,11 +1,10 @@
 ﻿using System.Net.Mime;
+using DNCCorporate.Public.Web.ErrorHandlings;
 using DNCCorporate.Public.Web.Framework;
 using DNCCorporate.Public.Web.Infrastructure;
 using DNCCorporate.Services;
 using Microsoft.AspNetCore.HttpOverrides;
-using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.AspNetCore.Mvc.Razor;
-using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,12 +13,14 @@ builder.Services.RegisterDNCServices(builder.Configuration);
 
 // localization            
 var localizationSettings = builder.Configuration.GetSection(nameof(LocalizationSettings))
-    .Get<LocalizationSettings>();
+    .Get<LocalizationSettings>() ?? throw new SettingsNotFoundException(nameof(LocalizationSettings));
+
 builder.Services.ConfigureRequestLocalization(localizationSettings);
 
 // theme
 var themeSettings = builder.Configuration.GetSection(nameof(ThemeSettings))
-    .Get<ThemeSettings>();
+    .Get<ThemeSettings>() ?? throw new SettingsNotFoundException(nameof(ThemeSettings));
+
 builder.Services.Configure<RazorViewEngineOptions>(options =>
 {
     options.ViewLocationExpanders.Add(new ViewLocationExpander(themeSettings));
@@ -37,7 +38,7 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.Configure<ForwardedHeadersOptions>(options =>
 {
     options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto | ForwardedHeaders.XForwardedHost;
-    options.KnownNetworks.Clear();
+    options.KnownIPNetworks.Clear();
     options.KnownProxies.Clear();
 });
 

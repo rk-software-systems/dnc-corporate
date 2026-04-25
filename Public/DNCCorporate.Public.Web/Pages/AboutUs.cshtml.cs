@@ -3,14 +3,9 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace DNCCorporate.Public.Web.Pages;
 
-public class AboutUsModel : PageModel
+public class AboutUsModel(IMetaTagService metaTagService) : PageModel
 {
-    private readonly IMetaTagService _metaTagService;
-
-    public AboutUsModel(IMetaTagService metaTagService)
-    {
-        _metaTagService = metaTagService;
-    }
+    private readonly IMetaTagService _metaTagService = metaTagService;
 
     public void OnGet()
     {

@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <CopyRefAssembliesToPublishDirectory>false</CopyRefAssembliesToPublishDirectory>
@@ -15,14 +15,21 @@
 		<AnalysisMode>AllEnabledByDefault</AnalysisMode>
 		<AnalysisLevel>latest</AnalysisLevel>
 	</PropertyGroup>
+
+	<ItemGroup>
+	  <Compile Remove="Controllers\**" />
+	  <Content Remove="Controllers\**" />
+	  <EmbeddedResource Remove="Controllers\**" />
+	  <None Remove="Controllers\**" />
+	</ItemGroup>
 	
 	<ItemGroup>
 		<Content Remove="wwwroot\themes\.gitignore" />		
 	</ItemGroup>	
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="8.0.1" />
-		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.6" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="10.0.7" />
+		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.23.0" />
 	</ItemGroup>
 
   <ItemGroup>
@@ -37,7 +44,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Folder Include="Controllers\" />
 		<Folder Include="Themes\Default\assets\" />
 	</ItemGroup>
 
