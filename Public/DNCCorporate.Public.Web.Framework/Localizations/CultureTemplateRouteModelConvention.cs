@@ -3,10 +3,10 @@
 namespace DNCCorporate.Public.Web.Framework;
 
 ///<summary>
-/// Configure {lang?} as first route parameter in the request path
+/// Configure {culture?} as first route parameter in the request path
 ///</summary>
 public class CultureTemplateRouteModelConvention : IPageRouteModelConvention
-{        
+{
     public void Apply(PageRouteModel model)
     {
         ArgumentNullException.ThrowIfNull(model, nameof(model));
@@ -15,18 +15,17 @@ public class CultureTemplateRouteModelConvention : IPageRouteModelConvention
         for (var i = 0; i < selectorCount; i++)
         {
             var selector = model.Selectors[i];
-            if (!string.IsNullOrEmpty(selector.AttributeRouteModel?.Template))
+            var template = selector.AttributeRouteModel?.Template ?? string.Empty;
+
+            model.Selectors.Add(new SelectorModel
             {
-                model.Selectors.Add(new SelectorModel
+                AttributeRouteModel = new AttributeRouteModel
                 {
-                    AttributeRouteModel = new AttributeRouteModel
-                    {
-                        Name = selector.AttributeRouteModel.Name,
-                        Order = -1,
-                        Template = AttributeRouteModel.CombineTemplates("{culture?}", selector.AttributeRouteModel.Template),
-                    }
-                });
-            }
+                    Name = selector.AttributeRouteModel?.Name,
+                    Order = -1,
+                    Template = AttributeRouteModel.CombineTemplates("{culture?}", template),
+                }
+            });
         }
     }
 }
