@@ -11,6 +11,7 @@ using Microsoft.Extensions.Options;
 namespace DNCCorporate.Public.Web.Pages;
 
 public class ContactUsModel(
+    ILogger<ContactUsModel> logger,
     IGoogleReCaptchaService googleReCaptchaService,
     IEmailSenderService emailSenderService,
     IOptions<BusinessSettings> businessSettingsOptions, 
@@ -18,6 +19,7 @@ public class ContactUsModel(
 {
     #region fields       
 
+    private readonly ILogger _logger = logger;
     private readonly IGoogleReCaptchaService _googleReCaptchaService = googleReCaptchaService;
     private readonly IMetaTagService _metaTagService = metaTagService;
     private readonly IEmailSenderService _emailSenderService = emailSenderService;
@@ -52,6 +54,7 @@ public class ContactUsModel(
         {
             if (string.IsNullOrEmpty(request.Form.ReCaptchaToken))
             {
+                _logReCaptchaTokenIsEmptyError(_logger, null);
                 isSuccess = false;
             }
             else
@@ -59,6 +62,7 @@ public class ContactUsModel(
                 var isCaptchaValid = await _googleReCaptchaService.Verify(request.Form.ReCaptchaToken);
                 if (!isCaptchaValid)
                 {
+                    _logReCaptchaVerificationWarning(_logger, null);
                     isSuccess = false;
                 }
             }
@@ -84,8 +88,9 @@ public class ContactUsModel(
                     _businessSettings.Email
                 ));
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                _logSendEmailError(_logger, ex);
                 isSuccess = false;
             }
 #pragma warning restore CA1031 // Do not catch general exception types
@@ -94,5 +99,23 @@ public class ContactUsModel(
         var result = new ContactUsResponseViewModel(isSuccess);
         return new JsonResult(result);
     }
+    #endregion
+
+    #region logging
+
+    private static readonly Action<ILogger, Exception?> _logReCaptchaTokenIsEmptyError = LoggerMessage.Define(
+       LogLevel.Error,
+       10000001,
+       "ReCaptcha token is empty.");
+
+    private static readonly Action<ILogger, Exception?> _logReCaptchaVerificationWarning = LoggerMessage.Define(
+       LogLevel.Warning,
+       10000002,
+       "ReCaptcha verification is not successful.");
+
+    private static readonly Action<ILogger, Exception?> _logSendEmailError = LoggerMessage.Define(
+       LogLevel.Error,
+       10000003,
+       "Error occurred while sending email.");
     #endregion
 }
