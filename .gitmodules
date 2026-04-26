@@ -1,0 +1,3 @@
+[submodule "Public/DNCCorporate.Public.Web/Themes/RKSoftware"]
+	path = Public/DNCCorporate.Public.Web/Themes/RKSoftware
+	url = https://github.com/rk-software-systems/dnc-corporate-rksoftware.git

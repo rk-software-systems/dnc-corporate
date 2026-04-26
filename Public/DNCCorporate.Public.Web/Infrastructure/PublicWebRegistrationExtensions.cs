@@ -1,41 +1,47 @@
-﻿using DNCCorporate.Public.Web.Infrastructure.MVC;
-using DNCCorporate.Server.Contract;
-using DNCCorporate.Server.Contract.Content;
-using DNCCorporate.Server.Services;
-using DNCCorporate.Server.Services.Localization;
-using Microsoft.AspNetCore.Mvc.Razor;
-using Microsoft.AspNetCore.Routing;
-using Microsoft.Extensions.DependencyInjection;
+﻿using DNCCorporate.Contracts;
+using DNCCorporate.Public.Web.Framework;
+using DNCCorporate.Services;
+using Microsoft.Extensions.Localization;
 
-namespace DNCCorporate.Public.Web.Infrastructure
+namespace DNCCorporate.Public.Web.Infrastructure;
+
+/// <summary>
+/// This class contains service collection registration method that is used to register Service implementations and dependencies.
+/// </summary>
+public static class PublicWebRegistrationExtensions
 {
     /// <summary>
-    /// This class contains service collection registration method that is used to register Service implementations and dependencies.
+    /// Add application specific services to service collection
     /// </summary>
-    public static class PublicWebRegistrationExtensions
+    /// <param name="services"><see cref="IServiceCollection"/></param>
+    /// <param name="configuration"><see cref="IConfiguration"/></param>
+    public static void RegisterDNCServices(this IServiceCollection services, IConfiguration configuration)
     {
-        /// <summary>
-        /// Add application specific services to service collection
-        /// </summary>
-        /// <param name="services"><see cref="IServiceCollection"/></param>
-        public static void RegisterDNCServices(this IServiceCollection services)
-        {
-            services.Configure<RouteOptions>(options =>
-            {
-                options.ConstraintMap.Add(LanguageRouteConstraint.ROUTE_LABEL, typeof(LanguageRouteConstraint));
-                options.ConstraintMap.Add(PageSFUrlRouteConstraint.ROUTE_LABEL, typeof(PageSFUrlRouteConstraint));
-            });
+        ArgumentNullException.ThrowIfNull(configuration, nameof(configuration));
 
-            services.Configure<RazorViewEngineOptions>(options =>
-            {
-                options.ViewLocationExpanders.Add(new ViewLocationExpander());
-            });
+        services.AddScoped<IWorkContext, WebWorkContext>();
 
-            services.AddHttpContextAccessor();
-            services.AddTransient<ILanguageProvider, LanguageProvider>();
-            services.AddTransient<IWorkContext, WebWorkContext>();
+        services.Configure<BusinessSettings>(configuration.GetSection(nameof(BusinessSettings)));
 
-            services.AddTransient<IPageService, PageService>();
-        }
+        services.AddSingleton<IApplicationDateService, ApplicationDateService>();
+
+        // theme and text resources
+        services.Configure<LocalizationSettings>(configuration.GetSection(nameof(LocalizationSettings)));
+        services.Configure<ThemeSettings>(configuration.GetSection(nameof(ThemeSettings)));
+        services.AddSingleton<ITextResourceQueryService, TextResourceQueryService>();
+        services.AddSingleton<IStringLocalizerFactory, JsonStringLocalizerFactory>();
+        services.AddSingleton<TextResourceCultureLocalizer>();
+
+        // emails
+        services.Configure<SmtpSettings>(configuration.GetSection(nameof(SmtpSettings)));
+        services.AddScoped<IEmailSenderService, EmailSenderService>();
+        services.AddScoped<IMetaTagService, MetaTagService>();
+
+        // sitemap
+        services.AddScoped<ISitemapService, SitemapService>();
+
+        // reCAPTCHA
+        services.Configure<GoogleReCaptchaSettings>(configuration.GetSection(nameof(GoogleReCaptchaSettings)));
+        services.AddHttpClient<IGoogleReCaptchaService, GoogleReCaptchaService>();
     }
 }

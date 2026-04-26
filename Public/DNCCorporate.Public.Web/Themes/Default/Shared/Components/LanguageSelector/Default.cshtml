@@ -1,0 +1,28 @@
+﻿@model LanguageSelectorViewModel
+
+<div class="dropdown">
+    <a class="btn-sm btn-default border border-secondary dropdown-toggle"
+       href="#"
+       role="button"
+       id="dropdownLang"
+       data-toggle="dropdown"
+       aria-haspopup="true"
+       aria-expanded="false">
+        @($"{Model.RequestCulture.DisplayName}")
+    </a>
+
+    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownLang">
+        @foreach (var culture in Model.SupportedCultures)
+        {
+            if (!culture.Value.Equals(Model.RequestCulture.Name, StringComparison.OrdinalIgnoreCase))
+            {
+                // replace {culture} value with the one from the list
+                Model.RouteData["culture"] = culture.Value;
+
+                <a class="dropdown-item small" asp-all-route-data="@Model.RouteData">
+                    @culture.Text
+                </a>
+            }
+        }
+    </div>
+</div>

@@ -1,39 +1,72 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
     <CopyRefAssembliesToPublishDirectory>false</CopyRefAssembliesToPublishDirectory>
     <UserSecretsId>e568858b-334c-4273-96d3-256cd32a50ab</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <DockerfileContext>..\..</DockerfileContext>
   </PropertyGroup>
 
-  <PropertyGroup>
-    <EnableNETAnalyzers>true</EnableNETAnalyzers>
-    <AnalysisMode>AllEnabledByDefault</AnalysisMode>
-    <AnalysisLevel>latest</AnalysisLevel>
-  </PropertyGroup>
+	<PropertyGroup>
+		<EnableNETAnalyzers>true</EnableNETAnalyzers>
+		<AnalysisMode>AllEnabledByDefault</AnalysisMode>
+		<AnalysisLevel>latest</AnalysisLevel>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <Compile Remove="Controllers\**" />
+	  <Content Remove="Controllers\**" />
+	  <EmbeddedResource Remove="Controllers\**" />
+	  <None Remove="Controllers\**" />
+	</ItemGroup>
+	
+	<ItemGroup>
+		<Content Remove="wwwroot\themes\.gitignore" />		
+	</ItemGroup>	
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="10.0.7" />
+		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.23.0" />
+	</ItemGroup>
 
   <ItemGroup>
-    <Content Remove="wwwroot\themes\.gitignore" />
+    <ProjectReference Include="..\..\Libraries\DNCCorporate.Contracts\DNCCorporate.Contracts.csproj" />
+    <ProjectReference Include="..\..\Libraries\DNCCorporate.Services\DNCCorporate.Services.csproj" />
+    <ProjectReference Include="..\..\Libraries\DNCCorporate.ViewModels\DNCCorporate.ViewModels.csproj" />
+    <ProjectReference Include="..\DNCCorporate.Public.Web.Framework\DNCCorporate.Public.Web.Framework.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="6.0.10" />
-    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.17.0" />
-  </ItemGroup>
+	<ItemGroup>
+		<None Include="wwwroot\themes\.gitignore" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\Libraries\DNCCorporate.Server.Contract\DNCCorporate.Server.Contract.csproj" />
-    <ProjectReference Include="..\..\Libraries\DNCCorporate.Server.Services\DNCCorporate.Server.Services.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<Folder Include="Themes\Default\assets\" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Views\" />
-  </ItemGroup>
+	<!-- This target is used to iterate through the themes folder contents and copy it to assets public folder -->
+	<Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+		<ItemGroup>
+			<StubFiles Include="$(ProjectDir)Themes\**\*.tdef" />
 
-  <ItemGroup>
-    <None Include="wwwroot\themes\.gitignore" />
-  </ItemGroup>
+			<StubDirs Include="@(StubFiles->'%(RecursiveDir)')" />
+		</ItemGroup>
+		<!-- Process theme directories (one by one) -->
+		<MSBuild Projects="$(MSBuildProjectFile)" Targets="CopyThemeAssetsOnWin;CopyThemeAssetsOnLin" Properties="CurrentFolder=%(StubDirs.Identity)" />
+	</Target>
+	<!-- Single directory copy asset task -->
+	<Target Name="CopyThemeAssetsOnWin" Condition="'$(BuildOS)' == '' Or '$(BuildOS)' == 'win'">
+		<!-- Windows path structure requires no adjustments -->
+		<Message Text="Check and copy contents of theme: $(CurrentFolder); Build OS: $(BuildOS)" Importance="high" />
+		<Exec Command="if not exist &quot;$(ProjectDir)wwwroot\themes\$(CurrentFolder)&quot; mkdir &quot;$(ProjectDir)wwwroot\themes\$(CurrentFolder)&quot;&#xD;&#xA;xcopy &quot;$(ProjectDir)Themes\$(CurrentFolder)assets\&quot; &quot;$(ProjectDir)wwwroot\themes\$(CurrentFolder)&quot; /d /s /i /y" />
+	</Target>
 
+	<Target Name="CopyThemeAssetsOnLin" Condition="'$(BuildOS)' == 'lin'">
+		<!-- Linux path structure requires backslash changes -->
+		<Message Text="Check and copy contents of theme: $(CurrentFolder); Build OS: $(BuildOS)" Importance="high" />
+		<Exec Condition="!Exists('$(ProjectDir)wwwroot/themes/$(CurrentFolder)')" Command="mkdir '$(ProjectDir)wwwroot/themes/$(CurrentFolder)' &amp;&amp; cp -r -f '$(ProjectDir)Themes/$(CurrentFolder)assets/.' '$(ProjectDir)wwwroot/themes/$(CurrentFolder)'" />
+	</Target>
 </Project>
