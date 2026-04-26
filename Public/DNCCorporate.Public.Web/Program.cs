@@ -8,10 +8,10 @@ using Microsoft.AspNetCore.Mvc.Razor;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddLogging();
+
 // services
 builder.Services.RegisterDNCServices(builder.Configuration);
-
-
 
 // localization            
 var localizationSettings = builder.Configuration.GetSection(nameof(LocalizationSettings))
@@ -86,6 +86,7 @@ app.Map("/api", app =>
 });
 
 // Configure Razor Pages
+app.UseRouting();
 app.UseRequestLocalization();
 app.MapRazorPages();
 
